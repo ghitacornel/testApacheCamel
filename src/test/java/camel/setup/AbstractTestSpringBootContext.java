@@ -1,4 +1,4 @@
-package camel;
+package camel.setup;
 
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
