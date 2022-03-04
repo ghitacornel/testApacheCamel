@@ -3,9 +3,14 @@ package camel.route1;
 import org.apache.camel.builder.AggregationStrategies;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.endpoint.StaticEndpointBuilders;
+import org.apache.camel.component.jackson.JacksonDataFormat;
+import org.apache.camel.component.jackson.ListJacksonDataFormat;
 import org.apache.camel.model.dataformat.BindyType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Component
 public class Route1 extends RouteBuilder {
@@ -22,9 +27,16 @@ public class Route1 extends RouteBuilder {
     @Value("${route1.output.file}")
     private String outputFile;
 
+    @Value("${route1.output.xml.path}")
+    private String outputXmlPath;
+
+    @Value("${route1.output.xml.file}")
+    private String outputXmlFile;
+
     @Override
     public void configure() {
         from(StaticEndpointBuilders.file(inputPath).fileName(inputFile).noop(true))
+                .log("processing csv file \n\n ${body} \n ")
                 .unmarshal()
                 .bindy(BindyType.Csv, CsvRow.class)
                 .split()
@@ -55,8 +67,27 @@ public class Route1 extends RouteBuilder {
                 .log("processing json item ${body}")
                 .aggregate(constant(true), AggregationStrategies.string(","))
                 .completionSize(3)
+                .transform(simple("[${body}]"))
                 .log("processing json concat ${body}")
                 .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile))
+                .log("json file completed \n\n ${body} \n ")
+//                .unmarshal(new ListJacksonDataFormat(JsonRow.class))
+//                .log("processing json file ${body}")
+//                .filter(exchange -> {
+//                    Object body = exchange.getIn().getBody();
+//                    JsonRow input = (JsonRow) body;
+//                    return input.getId() < 3;
+//                })
+//                .process(exchange -> {
+//                    Object body = exchange.getIn().getBody();
+//                    JsonRow input = (JsonRow) body;
+//                    input.setName(StringUtils.capitalize(input.getName()));
+//                })
+//                .marshal()
+//                .jaxb()
+//                .aggregate(constant(true), AggregationStrategies.string(","))
+//                .completionSize(3)
+//                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile))
         ;
     }
 }
