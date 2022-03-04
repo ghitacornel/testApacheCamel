@@ -10,7 +10,7 @@ import org.apache.camel.dataformat.bindy.annotation.DataField;
 @AllArgsConstructor
 @Data
 @CsvRecord(separator = ",", skipFirstLine = true)
-public class CsvInput {
+public class CsvInputRow {
 
     @DataField(pos = 1, name = "id")
     private int id;

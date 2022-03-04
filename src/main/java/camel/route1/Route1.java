@@ -26,28 +26,28 @@ public class Route1 extends RouteBuilder {
     public void configure() {
         from(StaticEndpointBuilders.file(inputPath).fileName(inputFile).noop(true))
                 .unmarshal()
-                .bindy(BindyType.Csv, CsvInput.class)
+                .bindy(BindyType.Csv, CsvInputRow.class)
                 .split()
                 .body()
                 .log("processing csv item ${body}")
                 .filter(exchange -> {
                     Object body = exchange.getIn().getBody();
-                    CsvInput input = (CsvInput) body;
+                    CsvInputRow input = (CsvInputRow) body;
                     return input.getAge() > 0;
                 })
                 .filter(exchange -> {
                     Object body = exchange.getIn().getBody();
-                    CsvInput input = (CsvInput) body;
+                    CsvInputRow input = (CsvInputRow) body;
                     return input.getId() < 200;
                 })
                 .process(exchange -> {
                     Object body = exchange.getIn().getBody();
-                    CsvInput input = (CsvInput) body;
+                    CsvInputRow input = (CsvInputRow) body;
                     input.setName(input.getName().toUpperCase());
                 })
                 .process(exchange -> {
                     Object body = exchange.getIn().getBody();
-                    CsvInput input = (CsvInput) body;
+                    CsvInputRow input = (CsvInputRow) body;
                     input.setAge(input.getAge() / 10);
                 })
                 .marshal()
