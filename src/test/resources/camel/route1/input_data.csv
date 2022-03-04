@@ -1,6 +1,6 @@
 id,name.age
-1,ion,111
-2,gheorghe,222
-3,vasile,333
+1,ion,11
+2,gheorghe,22
+3,vasile,33
 100,filtered out data by negative age,-100
 200,filtered out data by id greater than 200,100

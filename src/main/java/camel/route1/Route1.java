@@ -48,7 +48,7 @@ public class Route1 extends RouteBuilder {
                 .process(exchange -> {
                     Object body = exchange.getIn().getBody();
                     CsvInputRow input = (CsvInputRow) body;
-                    input.setAge(input.getAge() / 10);
+                    input.setAge(input.getAge() + 1);
                 })
                 .marshal()
                 .json()
