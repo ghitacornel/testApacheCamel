@@ -10,7 +10,9 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.MockEndpoints;
 import org.apache.camel.test.spring.junit5.MockEndpointsAndSkip;
+import org.apache.camel.util.function.ThrowingConsumer;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,17 +25,23 @@ import java.util.concurrent.TimeUnit;
 public class Route1Test {
 
     @Autowired
-    private CamelContext camelContext;
+    private CamelContext context;
 
     @Produce("mock:file")
     protected ProducerTemplate start;
+
+    @BeforeEach
+    public void before() throws Exception {
+        AdviceWith.adviceWith(context, "route1", a -> {
+                    a.weaveAddLast().to("mock:stop");
+                }
+        );
+    }
 
     @Test
     public void testRoute() throws Exception {
 
         start.sendBody("xxx");
-
-        AdviceWith.adviceWith(camelContext, "route1", a -> a.mockEndpointsAndSkip("*"));
 
         TimeUnit.SECONDS.sleep(2);
         Assertions.assertTrue(true);
