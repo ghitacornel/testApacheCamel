@@ -38,10 +38,17 @@ public class Route1Test {
         // wait for file processing
         TimeUnit.SECONDS.sleep(1);
 
-        // verify
+        // verify json
         {
-            Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "route1", "reference_output_data.json");
+            Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "route1", "output_data.json");
             Path workingOutputFile = Paths.get("target", "route1", "output_data.json");
+            Assertions.assertThat(Files.mismatch(expectedOutputFile, workingOutputFile)).isEqualTo(-1);
+        }
+
+        // verify xml
+        {
+            Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "route1", "output_data.xml");
+            Path workingOutputFile = Paths.get("target", "route1", "output_data.xml");
             Assertions.assertThat(Files.mismatch(expectedOutputFile, workingOutputFile)).isEqualTo(-1);
         }
 
