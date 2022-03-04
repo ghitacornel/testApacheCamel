@@ -65,7 +65,6 @@ public class Route1 extends RouteBuilder {
                 .aggregate(constant(true), AggregationStrategies.string(","))
                 .completionSize(3)
                 .transform(simple("[${body}]"))
-                .log("processing json concat ${body}")
                 .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile))
                 .log("json file completed \n\n ${body} \n ")
                 .log("processing json file \n\n ${body} \n ")
