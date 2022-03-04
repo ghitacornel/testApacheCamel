@@ -71,23 +71,29 @@ public class Route1 extends RouteBuilder {
                 .log("processing json concat ${body}")
                 .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile))
                 .log("json file completed \n\n ${body} \n ")
-//                .unmarshal(new ListJacksonDataFormat(JsonRow.class))
-//                .log("processing json file ${body}")
-//                .filter(exchange -> {
-//                    Object body = exchange.getIn().getBody();
-//                    JsonRow input = (JsonRow) body;
-//                    return input.getId() < 3;
-//                })
-//                .process(exchange -> {
-//                    Object body = exchange.getIn().getBody();
-//                    JsonRow input = (JsonRow) body;
-//                    input.setName(StringUtils.capitalize(input.getName()));
-//                })
-//                .marshal()
-//                .jaxb()
-//                .aggregate(constant(true), AggregationStrategies.string(","))
-//                .completionSize(3)
-//                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile))
+                .log("processing json file \n\n ${body} \n ")
+                .unmarshal(new ListJacksonDataFormat(JsonRow.class))
+                .split()
+                .body()
+                .log("processing json item ${body}")
+                .filter(exchange -> {
+                    Object body = exchange.getIn().getBody();
+                    JsonRow input = (JsonRow) body;
+                    return input.getId() < 3;
+                })
+                .process(exchange -> {
+                    Object body = exchange.getIn().getBody();
+                    JsonRow input = (JsonRow) body;
+                    input.setName(StringUtils.capitalize(input.getName().toLowerCase()));
+                })
+                .marshal()
+                .jacksonXml()
+                .log("processing xml item ${body}")
+                .aggregate(constant(true), AggregationStrategies.string("\n"))
+                .completionSize(2)
+                .transform(simple("<alldata>\n${body}\n</alldata>"))
+                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile))
+                .log("xml file completed \n\n ${body} \n ")
         ;
     }
 }
