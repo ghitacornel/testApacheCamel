@@ -26,28 +26,28 @@ public class Route1 extends RouteBuilder {
     public void configure() {
         from(StaticEndpointBuilders.file(inputPath).fileName(inputFile).noop(true))
                 .unmarshal()
-                .bindy(BindyType.Csv, CsvInputRow.class)
+                .bindy(BindyType.Csv, CsvRow.class)
                 .split()
                 .body()
                 .log("processing csv item ${body}")
                 .filter(exchange -> {
                     Object body = exchange.getIn().getBody();
-                    CsvInputRow input = (CsvInputRow) body;
+                    CsvRow input = (CsvRow) body;
                     return input.getAge() > 0;
                 })
                 .filter(exchange -> {
                     Object body = exchange.getIn().getBody();
-                    CsvInputRow input = (CsvInputRow) body;
+                    CsvRow input = (CsvRow) body;
                     return input.getId() < 200;
                 })
                 .process(exchange -> {
                     Object body = exchange.getIn().getBody();
-                    CsvInputRow input = (CsvInputRow) body;
+                    CsvRow input = (CsvRow) body;
                     input.setName(input.getName().toUpperCase());
                 })
                 .process(exchange -> {
                     Object body = exchange.getIn().getBody();
-                    CsvInputRow input = (CsvInputRow) body;
+                    CsvRow input = (CsvRow) body;
                     input.setAge(input.getAge() + 1);
                 })
                 .marshal()
@@ -56,7 +56,7 @@ public class Route1 extends RouteBuilder {
                 .aggregate(constant(true), AggregationStrategies.string(","))
                 .completionSize(3)
                 .log("processing json concat ${body}")
-                .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile).advanced())
+                .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile))
         ;
     }
 }
