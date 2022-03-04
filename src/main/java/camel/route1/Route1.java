@@ -35,7 +35,7 @@ public class Route1 extends RouteBuilder {
 
     @Override
     public void configure() {
-        from(StaticEndpointBuilders.file(inputPath).fileName(inputFile).noop(true))
+        from(StaticEndpointBuilders.file(inputPath).fileName(inputFile).delete(true))
                 .log("processing csv file \n\n ${body} \n ")
                 .unmarshal()
                 .bindy(BindyType.Csv, CsvRow.class)
