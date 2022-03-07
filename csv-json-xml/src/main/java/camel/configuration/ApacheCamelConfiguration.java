@@ -1,6 +1,6 @@
 package camel.configuration;
 
-import camel.route1.Route;
+import camel.route.Route;
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.context.ApplicationContext;

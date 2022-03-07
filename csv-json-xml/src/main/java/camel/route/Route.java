@@ -1,4 +1,4 @@
-package camel.route1;
+package camel.route;
 
 import org.apache.camel.builder.AggregationStrategies;
 import org.apache.camel.builder.RouteBuilder;

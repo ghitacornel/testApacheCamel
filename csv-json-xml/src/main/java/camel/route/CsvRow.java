@@ -1,4 +1,4 @@
-package camel.route1;
+package camel.route;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
