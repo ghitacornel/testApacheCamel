@@ -10,24 +10,24 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
-public class Route1 extends RouteBuilder {
+public class Route extends RouteBuilder {
 
-    @Value("${route1.input.path}")
+    @Value("${route.input.path}")
     private String inputPath;
 
-    @Value("${route1.input.file}")
+    @Value("${route.input.file}")
     private String inputFile;
 
-    @Value("${route1.output.path}")
+    @Value("${route.output.path}")
     private String outputPath;
 
-    @Value("${route1.output.file}")
+    @Value("${route.output.file}")
     private String outputFile;
 
-    @Value("${route1.output.xml.path}")
+    @Value("${route.output.xml.path}")
     private String outputXmlPath;
 
-    @Value("${route1.output.xml.file}")
+    @Value("${route.output.xml.file}")
     private String outputXmlFile;
 
     @Override

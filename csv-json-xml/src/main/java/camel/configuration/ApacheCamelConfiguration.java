@@ -1,6 +1,6 @@
 package camel.configuration;
 
-import camel.route1.Route1;
+import camel.route1.Route;
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.context.ApplicationContext;
@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class ApacheCamelConfiguration {
 
     @Bean
-    CamelContext camelContext(ApplicationContext applicationContext, Route1 route1) throws Exception {
+    CamelContext camelContext(ApplicationContext applicationContext, Route route) throws Exception {
         SpringCamelContext camelContext = new SpringCamelContext(applicationContext);
         camelContext.disableJMX();
-        camelContext.addRoutes(route1);
+        camelContext.addRoutes(route);
         return camelContext;
     }
 
