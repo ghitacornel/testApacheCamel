@@ -65,7 +65,7 @@ public class Route1 extends RouteBuilder {
                 .aggregate(constant(true), AggregationStrategies.string(","))
                 .completionSize(3)
                 .transform(simple("[${body}]"))
-                .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile))
+                .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile).fileExist("Append"))
                 .log("json file completed \n\n ${body} \n ")
                 .log("processing json file \n\n ${body} \n ")
                 .unmarshal(new ListJacksonDataFormat(JsonRow.class))
@@ -88,7 +88,7 @@ public class Route1 extends RouteBuilder {
                 .aggregate(constant(true), AggregationStrategies.string("\n"))
                 .completionSize(2)
                 .transform(simple("<alldata>\n${body}\n</alldata>"))
-                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile))
+                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile).fileExist("Override"))
                 .log("xml file completed \n\n ${body} \n ")
         ;
     }
