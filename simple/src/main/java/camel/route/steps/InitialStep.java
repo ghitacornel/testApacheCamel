@@ -4,14 +4,16 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class InitialStep implements Processor {
 
-    public String testString;
+    public Date testDate;
 
     @Override
     public void process(Exchange exchange) {
-        testString = "input data";
-        exchange.getMessage().setBody(testString);
+        testDate = new Date();
+        exchange.getMessage().setBody(testDate);
     }
 }

@@ -30,8 +30,8 @@ public class RouteTest {
         ProducerTemplate template = context.createProducerTemplate();
         template.sendBody("direct:start", "This is just a dummy startup message. It will be ignored");
 
-        Assertions.assertThat(initialStep.testString).isEqualTo("input data");
-        Assertions.assertThat(finalStep.testString).isEqualTo("input data 2 3");
+        Assertions.assertThat(initialStep.testDate).isNotNull();
+        Assertions.assertThat(finalStep.testString).isEqualTo((initialStep.testDate.getTime() + 222) + " 3");
 
     }
 }
