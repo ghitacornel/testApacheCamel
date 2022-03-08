@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @CamelSpringBootTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RouteTest {
+public class SimpleRouteTest {
 
     @Autowired
     CamelContext context;

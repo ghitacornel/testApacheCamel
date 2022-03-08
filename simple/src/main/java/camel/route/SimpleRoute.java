@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class Route extends RouteBuilder {
+public class SimpleRoute extends RouteBuilder {
 
     private final InitialStep initialStep;
     private final Step2 step2;
