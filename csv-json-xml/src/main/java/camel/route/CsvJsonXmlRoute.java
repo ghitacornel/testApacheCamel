@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
-public class Route extends RouteBuilder {
+public class CsvJsonXmlRoute extends RouteBuilder {
 
     @Value("${route.input.path}")
     private String inputPath;

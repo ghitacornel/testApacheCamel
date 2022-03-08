@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @CamelSpringBootTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RouteTest {
+public class CsvJsonXmlRouteTest {
 
     @Test
     public void testRoute() throws Exception {
