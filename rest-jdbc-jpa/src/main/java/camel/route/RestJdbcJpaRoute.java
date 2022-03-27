@@ -22,7 +22,7 @@ public class RestJdbcJpaRoute extends RouteBuilder {
     private final OutputModelProcessor outputModelProcessor;
 
     @Override
-    public void configure() throws Exception {
+    public void configure() {
 
         // This section is required - it tells Camel how to configure the REST service
         restConfiguration()
