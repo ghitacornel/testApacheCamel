@@ -19,24 +19,24 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-csv</artifactId>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-csv-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-bindy</artifactId>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-bindy-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jackson</artifactId>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-jackson-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jacksonxml</artifactId>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-jacksonxml-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jaxb</artifactId>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-jaxb-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
