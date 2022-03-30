@@ -1,7 +1,6 @@
 package camel;
 
 import camel.route.model.InputModel;
-import camel.route.model.OutputModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
@@ -40,11 +39,27 @@ public class RestJdbcJpaRouteTest {
     }
 
     @Test
-    public void testPost() throws Exception {
+    public void testPostNoId() throws Exception {
         InputModel inputModel = new InputModel("aaa");
         ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(inputModel), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":\"no_id\",\"name\":\"aaa\"}");
+    }
+
+    @Test
+    public void testPostJPAId() throws Exception {
+        InputModel inputModel = new InputModel("jpa_aaa");
+        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(inputModel), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":\"jpa_id\",\"name\":\"jpa_aaa\"}");
+    }
+
+    @Test
+    public void testPostJDBCId() throws Exception {
+        InputModel inputModel = new InputModel("jdbc_aaa");
+        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(inputModel), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":\"jdbc_id\",\"name\":\"jdbc_aaa\"}");
     }
 
 }
