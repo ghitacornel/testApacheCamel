@@ -56,24 +56,13 @@
         </dependency>
 
         <!-- Spring Boot + Apache Camel -->
-        <!-- auto start Apache Camel routes , don't use it due to issues with tests -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.camel.springboot</groupId>-->
-        <!--            <artifactId>camel-spring-boot-starter</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-spring</artifactId>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-debug-starter</artifactId>
-        </dependency>
-
-        <!-- CAMEL -->
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
         </dependency>
 
         <!-- LOMBOK -->
