@@ -64,6 +64,9 @@ public class CsvJsonXmlRoute extends RouteBuilder {
                     CsvRow input = (CsvRow) body;
                     input.setAge(input.getAge() + 1);
                 })
+                .to("direct:jsonFile");
+
+        from("direct:jsonFile")
                 .marshal()
                 .json()
                 .log("processing json item ${body}")
@@ -72,6 +75,9 @@ public class CsvJsonXmlRoute extends RouteBuilder {
                 .transform(simple("[${body}]"))
                 .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile).fileExist("Append"))
                 .log("json file completed \n\n ${body} \n ")
+                .to("direct:xmlFile");
+
+        from("direct:xmlFile")
                 .log("processing json file \n\n ${body} \n ")
                 .unmarshal(new ListJacksonDataFormat(JsonRow.class))
                 .split()
