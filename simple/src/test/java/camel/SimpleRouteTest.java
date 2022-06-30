@@ -19,7 +19,7 @@ public class SimpleRouteTest {
 //    CamelContext context;
 //    ProducerTemplate template = context.createProducerTemplate();
     @Produce("direct:start")
-    private ProducerTemplate template;
+    ProducerTemplate template;
 
     @Autowired
     InitialStep initialStep;
