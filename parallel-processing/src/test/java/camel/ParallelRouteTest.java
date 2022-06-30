@@ -1,7 +1,9 @@
 package camel;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
 
@@ -13,10 +15,11 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @CamelSpringBootTest
+@SpringBootTest
 public class ParallelRouteTest {
 
-    @Test
-    public void testRoute() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
 
         // delete working folder
         FileSystemUtils.deleteRecursively(Paths.get("target", "route"));
@@ -29,7 +32,16 @@ public class ParallelRouteTest {
             FileCopyUtils.copy(providedInputFile.toFile(), workingInputFile.toFile());
         }
 
-        Thread.sleep(100);
+    }
+
+    @Test
+    public void testRoute() throws Exception {
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         // verify file
         {

@@ -22,6 +22,7 @@ public class ParallelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
+        // TODO make it parallel later
         from(StaticEndpointBuilders.file(inputPath).fileName(inputFile).delete(true))
                 .log("processing file \n\n ${body} \n ")
                 .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile).fileExist("Override"))

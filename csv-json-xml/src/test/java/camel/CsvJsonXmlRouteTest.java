@@ -2,6 +2,7 @@ package camel;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
@@ -19,8 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @CamelSpringBootTest
 public class CsvJsonXmlRouteTest {
 
-    @Test
-    public void testRoute() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
 
         // delete working folder
         FileSystemUtils.deleteRecursively(Paths.get("target", "route"));
@@ -33,43 +34,46 @@ public class CsvJsonXmlRouteTest {
             FileCopyUtils.copy(providedInputFile.toFile(), workingInputFile.toFile());
         }
 
-        // wait for file processing on another thread
-        new Thread(() -> {
+    }
+
+    @Test
+    public void testRoute() {
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // verify json
+        {
+            Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "output_data.json");
+            Path workingOutputFile = Paths.get("target", "route", "output_data.json");
             try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
+                assertThat(Files.mismatch(expectedOutputFile, workingOutputFile)).isEqualTo(-1);
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        }
 
-            // verify json
-            {
-                Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "output_data.json");
-                Path workingOutputFile = Paths.get("target", "route", "output_data.json");
-                try {
-                    assertThat(Files.mismatch(expectedOutputFile, workingOutputFile)).isEqualTo(-1);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
+        // verify xml
+        {
+            Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "output_data.xml");
+            Path workingOutputFile = Paths.get("target", "route", "output_data.xml");
 
-            // verify xml
-            {
-                Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "output_data.xml");
-                Path workingOutputFile = Paths.get("target", "route", "output_data.xml");
+            Source control = Input.fromPath(expectedOutputFile).build();
+            Source test = Input.fromPath(workingOutputFile).build();
+            Assertions.assertThat(
+                    DiffBuilder.compare(test).withTest(control)
+                            .ignoreWhitespace()
+                            .ignoreComments()
+                            .checkForSimilar()
+                            .build()
+                            .hasDifferences()
+            ).isFalse();
 
-                Source control = Input.fromPath(expectedOutputFile).build();
-                Source test = Input.fromPath(workingOutputFile).build();
-                Assertions.assertThat(
-                        DiffBuilder.compare(test).withTest(control)
-                                .ignoreWhitespace()
-                                .ignoreComments()
-                                .checkForSimilar()
-                                .build()
-                                .hasDifferences()
-                ).isFalse();
+        }
 
-            }
-        }).start();
     }
 
 }
