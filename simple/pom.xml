@@ -11,18 +11,4 @@
 
     <artifactId>simple</artifactId>
 
-    <dependencies>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- have spring boot automatically start the route -->
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-core-starter</artifactId>
-        </dependency>
-
-    </dependencies>
 </project>
