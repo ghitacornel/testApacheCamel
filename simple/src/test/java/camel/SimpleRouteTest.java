@@ -2,7 +2,7 @@ package camel;
 
 import camel.route.steps.FinalStep;
 import camel.route.steps.InitialStep;
-import org.apache.camel.CamelContext;
+import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.assertj.core.api.Assertions;
@@ -14,8 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class SimpleRouteTest {
 
-    @Autowired
-    CamelContext context;
+    // can build producer from injected context also
+//    @Autowired
+//    CamelContext context;
+//    ProducerTemplate template = context.createProducerTemplate();
+    @Produce("direct:start")
+    private ProducerTemplate template;
 
     @Autowired
     InitialStep initialStep;
@@ -27,7 +31,6 @@ public class SimpleRouteTest {
     public void testRoute() {
 
         // create a dummy producer and send a dummy starting message
-        ProducerTemplate template = context.createProducerTemplate();
         template.sendBody("direct:start", "This is just a dummy startup message. It will be ignored");
 
         Assertions.assertThat(initialStep.testDate).isNotNull();

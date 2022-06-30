@@ -2,7 +2,6 @@ package camel;
 
 import camel.route.model.InputModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.camel.CamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,9 +17,6 @@ import org.springframework.http.ResponseEntity;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class RestJdbcJpaRouteTest {
-
-    @Autowired
-    CamelContext context;
 
     // Spring will inject the random port assigned to the web server
     @LocalServerPort
