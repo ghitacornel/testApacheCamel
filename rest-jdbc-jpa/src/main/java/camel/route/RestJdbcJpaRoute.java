@@ -17,7 +17,6 @@ public class RestJdbcJpaRoute extends RouteBuilder {
     private final JdbcProcessor jdbcProcessor;
     private final JpaProcessor jpaProcessor;
     private final NoProcessor noProcessor;
-
     private final InputModelProcessor inputModelProcessor;
     private final OutputModelProcessor outputModelProcessor;
 
