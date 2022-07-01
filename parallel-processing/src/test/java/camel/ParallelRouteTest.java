@@ -35,7 +35,7 @@ public class ParallelRouteTest {
     }
 
     @Test
-    public void testRoute() throws Exception {
+    public void testRoute() {
 
         try {
             TimeUnit.SECONDS.sleep(1);
