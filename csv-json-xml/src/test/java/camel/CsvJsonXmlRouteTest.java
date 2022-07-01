@@ -4,6 +4,7 @@ import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
 import org.xmlunit.builder.DiffBuilder;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @CamelSpringBootTest
+@SpringBootTest
 public class CsvJsonXmlRouteTest {
 
     @BeforeEach
