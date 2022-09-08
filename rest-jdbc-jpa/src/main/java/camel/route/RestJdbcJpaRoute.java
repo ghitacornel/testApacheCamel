@@ -9,7 +9,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -69,15 +69,14 @@ public class RestJdbcJpaRoute extends RouteBuilder {
                 .end()
                 .bean(outputModelProcessor)
                 .end()
-                .onException(ConstraintViolationException.class)
+                .onException(ValidationException.class)
                 .handled(true)
                 .process(exchange -> {
                     Exception caused = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
                     exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, 400);
-                    exchange.getMessage().setBody(caused.getLocalizedMessage());
+                    exchange.getMessage().setBody(caused.getMessage());
                 })
-                .end()
-                ;
+                .end();
 
     }
 
