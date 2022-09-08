@@ -48,6 +48,13 @@ public class RestJdbcJpaRouteTest {
     }
 
     @Test
+    public void testGetNotFound() {
+        ResponseEntity<String> response = template.getForEntity("http://localhost:" + webServerPort + "/camel/api/-1", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        Assertions.assertThat(response.getBody()).isNull();
+    }
+
+    @Test
     public void testPostNoId() throws Exception {
         PersonRequest personRequest = new PersonRequest("none", 2, "ion", 11);
         ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);

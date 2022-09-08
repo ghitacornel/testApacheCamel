@@ -17,8 +17,13 @@ public class GetProcessor implements Processor {
     @Override
     public void process(Exchange exchange) {
         Integer id = exchange.getIn().getHeader("id", Integer.class);
-        Person person = personRepository.findById(id).get();
-        PersonResponse response = new PersonResponse(person.getId(), person.getName(), person.getAge());
-        exchange.getMessage().setBody(response);
+        Person person = personRepository.findById(id).orElse(null);
+        if (person == null) {
+            exchange.getMessage().setBody(null);
+            exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, 404);
+        } else {
+            PersonResponse response = new PersonResponse(person.getId(), person.getName(), person.getAge());
+            exchange.getMessage().setBody(response);
+        }
     }
 }
