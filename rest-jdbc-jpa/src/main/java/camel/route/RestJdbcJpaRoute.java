@@ -39,20 +39,16 @@ public class RestJdbcJpaRoute extends RouteBuilder {
         rest()
                 .path("/api") // This makes the API available at http://host:port/$CONTEXT_ROOT/api
 
-                .consumes(APPLICATION_JSON_VALUE)
-                .produces(APPLICATION_JSON_VALUE)
-
                 // HTTP: GET /api
                 .get("/{id}")
-                .produces("application/json")
+                .produces(APPLICATION_JSON_VALUE)
                 .to("direct:get")
 
                 // HTTP: POST /api
                 .post()
-                .consumes("application/json")
-                .produces("application/json")
-                .type(PersonRequest.class)
+                .consumes(APPLICATION_JSON_VALUE)
                 .produces(APPLICATION_JSON_VALUE)
+                .type(PersonRequest.class)
                 .outType(PersonResponse.class)
                 .to("direct:post");
 
