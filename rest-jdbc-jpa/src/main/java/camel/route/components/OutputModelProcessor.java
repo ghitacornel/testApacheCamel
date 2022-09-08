@@ -1,11 +1,10 @@
 package camel.route.components;
 
-import camel.route.model.OutputModel;
+import camel.route.model.PersonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,8 +15,8 @@ public class OutputModelProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        OutputModel outputModel = exchange.getIn().getBody(OutputModel.class);
-        exchange.getMessage().setBody(objectMapper.writeValueAsString(outputModel));
+        PersonResponse personResponse = exchange.getIn().getBody(PersonResponse.class);
+        exchange.getMessage().setBody(objectMapper.writeValueAsString(personResponse));
     }
 
 }

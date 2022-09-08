@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OutputModel {
-    private String id;
+public class PersonResponse {
+
+    private Integer id;
     private String name;
+    private int age;
+
 }

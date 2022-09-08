@@ -1,6 +1,6 @@
 package camel.route.components;
 
-import camel.route.model.InputModel;
+import camel.route.model.PersonRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
@@ -10,14 +10,14 @@ public class InputModelProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) {
-        InputModel inputModel = exchange.getIn().getBody(InputModel.class);
-        if (inputModel.getName().startsWith("jdbc")) {
+        PersonRequest personRequest = exchange.getIn().getBody(PersonRequest.class);
+        if (personRequest.getProcessor().startsWith("jdbc")) {
             exchange.getMessage().setHeader("system", "jdbc");
         }
-        if (inputModel.getName().startsWith("jpa")) {
+        if (personRequest.getProcessor().startsWith("jpa")) {
             exchange.getMessage().setHeader("system", "jpa");
         }
-        exchange.getMessage().setBody(inputModel);
+        exchange.getMessage().setBody(personRequest);
     }
 
 }

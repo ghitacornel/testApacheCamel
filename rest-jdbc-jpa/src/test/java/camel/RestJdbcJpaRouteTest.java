@@ -1,6 +1,6 @@
 package camel;
 
-import camel.route.model.InputModel;
+import camel.route.model.PersonRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.assertj.core.api.Assertions;
@@ -37,26 +37,26 @@ public class RestJdbcJpaRouteTest {
 
     @Test
     public void testPostNoId() throws Exception {
-        InputModel inputModel = new InputModel("aaa");
-        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(inputModel), String.class);
+        PersonRequest personRequest = new PersonRequest("none", 1, "ion", 11);
+        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":\"no_id\",\"name\":\"aaa\"}");
+        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":null,\"name\":\"ion\",\"age\":11}");
     }
 
     @Test
     public void testPostJPAId() throws Exception {
-        InputModel inputModel = new InputModel("jpa_aaa");
-        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(inputModel), String.class);
+        PersonRequest personRequest = new PersonRequest("jpa", 2, "gheorge", 12);
+        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":\"jpa_id\",\"name\":\"jpa_aaa\"}");
+        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":2,\"name\":\"gheorge\",\"age\":12}");
     }
 
     @Test
     public void testPostJDBCId() throws Exception {
-        InputModel inputModel = new InputModel("jdbc_aaa");
-        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(inputModel), String.class);
+        PersonRequest personRequest = new PersonRequest("jdbc", 3, "vasile", 13);
+        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":\"jdbc_id\",\"name\":\"jdbc_aaa\"}");
+        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":3,\"name\":\"vasile\",\"age\":13}");
     }
 
 }

@@ -1,8 +1,8 @@
 package camel.route;
 
 import camel.route.components.*;
-import camel.route.model.InputModel;
-import camel.route.model.OutputModel;
+import camel.route.model.PersonRequest;
+import camel.route.model.PersonResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -49,9 +49,9 @@ public class RestJdbcJpaRoute extends RouteBuilder {
                 // HTTP: POST /api
                 .post()
                 .consumes("application/json")
-                .type(InputModel.class)
+                .type(PersonRequest.class)
                 .produces(APPLICATION_JSON_VALUE)
-                .outType(OutputModel.class)
+                .outType(PersonResponse.class)
                 .to("direct:post");
 
         from("direct:get")
