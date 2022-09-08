@@ -55,7 +55,7 @@ public class RestJdbcJpaRouteTest {
     }
 
     @Test
-    public void testPostNoId() throws Exception {
+    public void testPostNoProcessor() throws Exception {
         PersonRequest personRequest = new PersonRequest("none", 2, "ion", 11);
         ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -63,7 +63,7 @@ public class RestJdbcJpaRouteTest {
     }
 
     @Test
-    public void testPostJPAId() throws Exception {
+    public void testPostJPAProcessor() throws Exception {
         PersonRequest personRequest = new PersonRequest("jpa", 3, "gheorge", 12);
         ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -71,7 +71,15 @@ public class RestJdbcJpaRouteTest {
     }
 
     @Test
-    public void testPostJDBCId() throws Exception {
+    public void testPostJPAProcessorBadData() throws Exception {
+        PersonRequest personRequest = new PersonRequest("jpa", 33, "   ", 5);
+        ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":3,\"name\":\"gheorge\",\"age\":12}");
+    }
+
+    @Test
+    public void testPostJDBCProcessor() throws Exception {
         PersonRequest personRequest = new PersonRequest("jdbc", 4, "vasile", 13);
         ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
