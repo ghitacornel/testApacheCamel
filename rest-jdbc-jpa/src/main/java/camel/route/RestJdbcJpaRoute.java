@@ -10,7 +10,6 @@ import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
