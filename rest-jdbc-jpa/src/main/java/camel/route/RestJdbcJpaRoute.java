@@ -19,6 +19,7 @@ public class RestJdbcJpaRoute extends RouteBuilder {
     private final NoProcessor noProcessor;
     private final InputModelProcessor inputModelProcessor;
     private final OutputModelProcessor outputModelProcessor;
+    private final GetProcessor getProcessor;
 
     @Override
     public void configure() {
@@ -42,21 +43,22 @@ public class RestJdbcJpaRoute extends RouteBuilder {
                 .produces(APPLICATION_JSON_VALUE)
 
                 // HTTP: GET /api
-                .get()
-                .produces("application/text")
+                .get("/{id}")
+                .produces("application/json")
                 .to("direct:get")
 
                 // HTTP: POST /api
                 .post()
                 .consumes("application/json")
+                .produces("application/json")
                 .type(PersonRequest.class)
                 .produces(APPLICATION_JSON_VALUE)
                 .outType(PersonResponse.class)
                 .to("direct:post");
 
         from("direct:get")
-                .transform()
-                .constant("simple response");
+                .bean(getProcessor)
+                .end();
 
         from("direct:post")
                 .bean(inputModelProcessor)
