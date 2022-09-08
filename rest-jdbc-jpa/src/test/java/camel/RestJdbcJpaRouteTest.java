@@ -74,8 +74,8 @@ public class RestJdbcJpaRouteTest {
     public void testPostJPAProcessorBadData() throws Exception {
         PersonRequest personRequest = new PersonRequest("jpa", 33, "   ", 5);
         ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/camel/api", objectMapper.writeValueAsString(personRequest), String.class);
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody()).isEqualTo("{\"id\":3,\"name\":\"gheorge\",\"age\":12}");
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        Assertions.assertThat(response.getBody()).isEqualTo("Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction");
     }
 
     @Test
