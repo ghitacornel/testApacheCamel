@@ -44,7 +44,7 @@ public class RestJdbcJpaRoute extends RouteBuilder {
                 // HTTP: GET /api
                 .get()
                 .produces("application/text")
-                .to("direct:simple")
+                .to("direct:get")
 
                 // HTTP: POST /api
                 .post()
@@ -52,13 +52,13 @@ public class RestJdbcJpaRoute extends RouteBuilder {
                 .type(InputModel.class)
                 .produces(APPLICATION_JSON_VALUE)
                 .outType(OutputModel.class)
-                .to("direct:modelProcessor");
+                .to("direct:post");
 
-        from("direct:simple")
+        from("direct:get")
                 .transform()
                 .constant("simple response");
 
-        from("direct:modelProcessor")
+        from("direct:post")
                 .bean(inputModelProcessor)
                 .choice()
                 .when(header("system").isEqualTo("jpa")).bean(jpaProcessor)
