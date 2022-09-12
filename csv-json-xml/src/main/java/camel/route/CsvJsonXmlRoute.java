@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
+
 @Component
 public class CsvJsonXmlRoute extends RouteBuilder {
 
@@ -71,9 +73,9 @@ public class CsvJsonXmlRoute extends RouteBuilder {
                 .json()
                 .log("processing json item ${body}")
                 .aggregate(constant(true), AggregationStrategies.string(","))
-                .completionSize(100)
+                .completionSize(3)
                 .transform(simple("[${body}]"))
-                .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile).fileExist("Append"))
+                .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile + "-" + new Date().getTime()).fileExist("Append"))
                 .log("json file completed \n\n ${body} \n ")
                 .to("direct:xmlFile");
 
@@ -92,14 +94,14 @@ public class CsvJsonXmlRoute extends RouteBuilder {
                     Object body = exchange.getIn().getBody();
                     JsonRow input = (JsonRow) body;
                     input.setName(StringUtils.capitalize(input.getName().toLowerCase()));
+                    exchange.getMessage().setHeader("id", input.getId());
                 })
                 .marshal()
                 .jacksonXml()
                 .log("processing xml item ${body}")
                 .aggregate(constant(true), AggregationStrategies.string("\n"))
-                .completionSize(100)
-                .transform(simple("<alldata>\n${body}\n</alldata>"))
-                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile).fileExist("Override"))
+                .completionFromBatchConsumer()
+                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile + "-" + "${header.id}" + "-" + new Date().getTime()))
                 .log("xml file completed \n\n ${body} \n ")
         ;
     }
