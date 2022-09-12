@@ -13,7 +13,6 @@
         <module>simple</module>
         <module>csv-json-xml</module>
         <module>rest-jdbc-jpa</module>
-        <module>parallel-processing</module>
     </modules>
 
     <properties>
