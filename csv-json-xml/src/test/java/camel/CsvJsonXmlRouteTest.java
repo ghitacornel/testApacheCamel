@@ -18,8 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@CamelSpringBootTest
 @SpringBootTest
+@CamelSpringBootTest
 public class CsvJsonXmlRouteTest {
 
     @BeforeEach
