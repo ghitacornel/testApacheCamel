@@ -47,19 +47,21 @@ public class RouteRestJms extends RouteBuilder {
 
         from("direct:post")
                 .bean(restJmsComponent)
-                .log("${body}")
+                .marshal().json()
+                .log("from rest to queue : ${body}")
                 .to("jms:queue:FirstQueue")
                 .end();
 
         from("jms:queue:FirstQueue")
                 .bean(queue1Queue2Component)
-                .log("${body}")
+                .marshal().json()
+                .log("from queue to queue : ${body}")
                 .to("jms:queue:SecondQueue")
                 .end();
 
         from("jms:queue:SecondQueue")
                 .bean(queue2JPAComponent)
-                .log("${body}")
+                .log("from queue to jpa : ${body}")
                 .end();
 
     }
