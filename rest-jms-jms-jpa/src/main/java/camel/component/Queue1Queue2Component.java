@@ -12,6 +12,5 @@ public class Queue1Queue2Component implements Processor {
     public void process(Exchange exchange) {
         CustomMessage customMessage = exchange.getIn().getBody(CustomMessage.class);
         customMessage.getLog().add("Queue1Queue2 processed");
-        exchange.getMessage().setBody(customMessage);
     }
 }
