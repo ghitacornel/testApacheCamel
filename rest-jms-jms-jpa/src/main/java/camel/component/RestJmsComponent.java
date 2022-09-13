@@ -11,7 +11,6 @@ public class RestJmsComponent implements Processor {
     @Override
     public void process(Exchange exchange) {
         CustomMessage customMessage = exchange.getIn().getBody(CustomMessage.class);
-        System.err.println(customMessage);
         customMessage.getLog().add("RestJmsComponent processed");
         exchange.getMessage().setBody(customMessage);
     }

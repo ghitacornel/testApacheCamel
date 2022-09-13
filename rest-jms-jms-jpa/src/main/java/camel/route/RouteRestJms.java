@@ -44,6 +44,7 @@ public class RouteRestJms extends RouteBuilder {
         from("direct:post")
                 .bean(restJmsComponent)
                 .log("${body}")
+                .to("jms:queue:FirstQueue")
                 .end();
 
     }
