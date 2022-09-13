@@ -6,6 +6,7 @@ import camel.component.RestJmsComponent;
 import camel.model.CustomMessage;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,7 @@ public class RouteRestJms extends RouteBuilder {
                 // Allow Camel to try to marshal/unmarshal between Java objects and JSON
                 .bindingMode(RestBindingMode.auto);
 
+        JacksonDataFormat jsonDataFormat = new JacksonDataFormat(CustomMessage.class);
 
         // Now define the REST API (POST, GET, etc.)
         rest()
@@ -53,6 +55,7 @@ public class RouteRestJms extends RouteBuilder {
                 .end();
 
         from("jms:queue:FirstQueue")
+                .unmarshal(jsonDataFormat)
                 .bean(queue1Queue2Component)
                 .marshal().json()
                 .log("from queue to queue : ${body}")
@@ -60,6 +63,7 @@ public class RouteRestJms extends RouteBuilder {
                 .end();
 
         from("jms:queue:SecondQueue")
+                .unmarshal(jsonDataFormat)
                 .bean(queue2JPAComponent)
                 .log("from queue to jpa : ${body}")
                 .end();
