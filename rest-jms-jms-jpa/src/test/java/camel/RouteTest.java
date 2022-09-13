@@ -40,10 +40,17 @@ public class RouteTest {
 
     @Test
     public void testPostNoProcessor() throws Exception {
+
+        Assertions.assertThat(repository.findAll()).isEmpty();
+
         CustomMessage request = new CustomMessage(1);
         ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/xxx/jms", objectMapper.writeValueAsString(request), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         Assertions.assertThat(response.getBody()).isNull();
+
+        Assertions.assertThat(repository.findAll().size()).isEqualTo(1);
+        Assertions.assertThat(repository.findAll().get(0).getId()).isEqualTo(1);
+        Assertions.assertThat(repository.findAll().get(0).getLogs()).isEqualTo("[RestJmsComponent processed, Queue1Queue2 processed, Queue2JPA processed]");
     }
 
 
