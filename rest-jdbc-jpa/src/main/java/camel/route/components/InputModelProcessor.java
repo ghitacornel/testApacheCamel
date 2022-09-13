@@ -17,7 +17,6 @@ public class InputModelProcessor implements Processor {
         if (personRequest.getProcessor().startsWith("jpa")) {
             exchange.getMessage().setHeader("system", "jpa");
         }
-        exchange.getMessage().setBody(personRequest);
     }
 
 }
