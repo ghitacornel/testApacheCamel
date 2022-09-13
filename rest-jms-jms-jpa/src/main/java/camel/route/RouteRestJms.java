@@ -1,5 +1,7 @@
 package camel.route;
 
+import camel.component.Queue1Queue2Component;
+import camel.component.Queue2JPAComponent;
 import camel.component.RestJmsComponent;
 import camel.model.CustomMessage;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class RouteRestJms extends RouteBuilder {
 
     private final RestJmsComponent restJmsComponent;
+    private final Queue1Queue2Component queue1Queue2Component;
+    private final Queue2JPAComponent queue2JPAComponent;
 
     @Override
     public void configure() {
@@ -48,11 +52,13 @@ public class RouteRestJms extends RouteBuilder {
                 .end();
 
         from("jms:queue:FirstQueue")
+                .bean(queue1Queue2Component)
                 .log("${body}")
                 .to("jms:queue:SecondQueue")
                 .end();
 
         from("jms:queue:SecondQueue")
+                .bean(queue2JPAComponent)
                 .log("${body}")
                 .end();
 
