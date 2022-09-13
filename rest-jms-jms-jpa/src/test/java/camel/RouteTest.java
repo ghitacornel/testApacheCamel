@@ -42,7 +42,7 @@ public class RouteTest {
     public void testPostNoProcessor() throws Exception {
         CustomMessage request = new CustomMessage(1);
         ResponseEntity<String> response = template.postForEntity("http://localhost:" + webServerPort + "/xxx/jms", objectMapper.writeValueAsString(request), String.class);
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         Assertions.assertThat(response.getBody()).isNull();
     }
 

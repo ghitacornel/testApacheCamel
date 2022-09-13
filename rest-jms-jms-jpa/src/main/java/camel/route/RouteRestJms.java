@@ -47,6 +47,15 @@ public class RouteRestJms extends RouteBuilder {
                 .to("jms:queue:FirstQueue")
                 .end();
 
+        from("jms:queue:FirstQueue")
+                .log("${body}")
+                .to("jms:queue:SecondQueue")
+                .end();
+
+        from("jms:queue:SecondQueue")
+                .log("${body}")
+                .end();
+
     }
 
 }
