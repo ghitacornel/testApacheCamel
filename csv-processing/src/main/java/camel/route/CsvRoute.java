@@ -24,9 +24,6 @@ public class CsvRoute extends RouteBuilder {
                 .log("processing csv file \n\n ${body} \n ")
                 .unmarshal()
                 .bindy(BindyType.Csv, CsvRow.class)
-                // split the message into other messages
-                // 1 file is considered the initial message
-                // which is split into multiple messages using policy : 1 message per row
                 .split()
                 .body()
                 .log("result row ${body}")
