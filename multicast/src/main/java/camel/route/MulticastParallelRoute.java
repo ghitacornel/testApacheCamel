@@ -12,6 +12,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MulticastParallelRoute extends RouteBuilder {
 
+    private final Snapshot snapshot;
+
     @Override
     public void configure() {
         from("direct:start")
@@ -34,6 +36,7 @@ public class MulticastParallelRoute extends RouteBuilder {
                 .bean((Processor) exchange -> {
                     List<String> logs = new ArrayList<>();
                     logs.add("parallel step 1 executed by " + Thread.currentThread());
+                    snapshot.getTrace().put("parallel step 1", Thread.currentThread());
                     exchange.getMessage().setBody(logs);
                 })
                 .log("after parallel flow 1 : ${body}")
@@ -43,6 +46,7 @@ public class MulticastParallelRoute extends RouteBuilder {
                 .bean((Processor) exchange -> {
                     List<String> logs = new ArrayList<>();
                     logs.add("parallel step 2 executed by " + Thread.currentThread());
+                    snapshot.getTrace().put("parallel step 2", Thread.currentThread());
                     exchange.getMessage().setBody(logs);
                 })
                 .log("after parallel flow 2 : ${body}")
@@ -52,6 +56,7 @@ public class MulticastParallelRoute extends RouteBuilder {
                 .bean((Processor) exchange -> {
                     List<String> logs = new ArrayList<>();
                     logs.add("parallel step 3 executed by " + Thread.currentThread());
+                    snapshot.getTrace().put("parallel step 3", Thread.currentThread());
                     exchange.getMessage().setBody(logs);
                 })
                 .log("after parallel flow 3 : ${body}")
