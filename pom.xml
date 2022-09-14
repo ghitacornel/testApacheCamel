@@ -15,6 +15,7 @@
         <module>rest-jdbc-jpa</module>
         <module>rest-jms-jms-jpa</module>
         <module>multicast</module>
+        <module>csv-processing</module>
     </modules>
 
     <properties>
