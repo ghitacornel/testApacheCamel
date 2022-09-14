@@ -23,10 +23,12 @@ public class MulticastParallelRouteTest {
     Snapshot snapshot;
 
     @Test
-    public void testRoute() {
+    public void testRoute() throws InterruptedException {
 
         // create a dummy producer and send a dummy starting message
         template.sendBody("direct:start", "This is just a dummy startup message. It will be ignored");
+
+        Thread.sleep(300);
 
         // check the snapshot and verify the parallel processing
         Assertions.assertThat(snapshot.getTrace().size()).isEqualTo(3);
