@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
-
 @Component
 public class CsvJsonXmlRoute extends RouteBuilder {
 
@@ -75,7 +73,7 @@ public class CsvJsonXmlRoute extends RouteBuilder {
                 .aggregate(constant(true), AggregationStrategies.string(","))
                 .completionSize(3)
                 .transform(simple("[${body}]"))
-                .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile + "-" + new Date().getTime()).fileExist("Append"))
+                .to(StaticEndpointBuilders.file(outputPath).fileName(outputFile).fileExist("Append"))
                 .log("json file completed \n\n ${body} \n ")
                 .to("direct:xmlFile");
 
@@ -101,7 +99,7 @@ public class CsvJsonXmlRoute extends RouteBuilder {
                 .log("processing xml item ${body}")
                 .aggregate(constant(true), AggregationStrategies.string("\n"))
                 .completionFromBatchConsumer()
-                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile + "-" + "${header.id}" + "-" + new Date().getTime()))
+                .to(StaticEndpointBuilders.file(outputXmlPath).fileName(outputXmlFile + "-" + "${header.id}"))
                 .log("xml file completed \n\n ${body} \n ")
         ;
     }

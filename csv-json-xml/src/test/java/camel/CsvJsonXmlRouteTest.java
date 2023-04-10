@@ -31,7 +31,7 @@ public class CsvJsonXmlRouteTest {
 
         // copy input file
         {
-            Path providedInputFile = Paths.get("src", "test", "resources", "camel", "input_data.csv");
+            Path providedInputFile = Paths.get("src", "test", "resources", "io", "input_data.csv");
             Path workingInputFile = Paths.get("target", "route", "input_data.csv");
             FileCopyUtils.copy(providedInputFile.toFile(), workingInputFile.toFile());
         }
@@ -49,7 +49,7 @@ public class CsvJsonXmlRouteTest {
 
         // verify json
         {
-            Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "output_data.json");
+            Path expectedOutputFile = Paths.get("src", "test", "resources", "io", "output_data.json");
             Path workingOutputFile = Paths.get("target", "route", "output_data.json");
             try {
                 assertThat(Files.mismatch(expectedOutputFile, workingOutputFile)).isEqualTo(-1);
@@ -60,7 +60,7 @@ public class CsvJsonXmlRouteTest {
 
         // verify xml
         {
-            Path expectedOutputFile = Paths.get("src", "test", "resources", "camel", "output_data.xml");
+            Path expectedOutputFile = Paths.get("src", "test", "resources", "io", "output_data.xml");
             Path workingOutputFile = Paths.get("target", "route", "output_data.xml");
 
             Source control = Input.fromPath(expectedOutputFile).build();
