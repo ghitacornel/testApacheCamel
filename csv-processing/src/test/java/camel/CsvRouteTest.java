@@ -26,7 +26,7 @@ public class CsvRouteTest {
 
         // copy input file
         {
-            Path providedInputFile = Paths.get("src", "test", "resources", "camel", "input_data.csv");
+            Path providedInputFile = Paths.get("src", "test", "resources", "io", "input_data.csv");
             Path workingInputFile = Paths.get("target", "route", "input_data.csv");
             FileCopyUtils.copy(providedInputFile.toFile(), workingInputFile.toFile());
         }
