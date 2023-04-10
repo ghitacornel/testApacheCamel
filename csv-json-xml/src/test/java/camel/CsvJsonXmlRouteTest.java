@@ -60,8 +60,24 @@ public class CsvJsonXmlRouteTest {
 
         // verify xml
         {
-            Path expectedOutputFile = Paths.get("src", "test", "resources", "io", "output_data.xml");
-            Path workingOutputFile = Paths.get("target", "route", "output_data.xml");
+            Path expectedOutputFile = Paths.get("src", "test", "resources", "io", "output_data.xml-1");
+            Path workingOutputFile = Paths.get("target", "route", "output_data.xml-1");
+
+            Source control = Input.fromPath(expectedOutputFile).build();
+            Source test = Input.fromPath(workingOutputFile).build();
+            Assertions.assertThat(
+                    DiffBuilder.compare(test).withTest(control)
+                            .ignoreWhitespace()
+                            .ignoreComments()
+                            .checkForSimilar()
+                            .build()
+                            .hasDifferences()
+            ).isFalse();
+
+        }
+        {
+            Path expectedOutputFile = Paths.get("src", "test", "resources", "io", "output_data.xml-2");
+            Path workingOutputFile = Paths.get("target", "route", "output_data.xml-2");
 
             Source control = Input.fromPath(expectedOutputFile).build();
             Source test = Input.fromPath(workingOutputFile).build();
