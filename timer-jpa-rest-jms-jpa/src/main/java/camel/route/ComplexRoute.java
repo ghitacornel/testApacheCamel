@@ -24,7 +24,6 @@ public class ComplexRoute extends RouteBuilder {
                 .log("orders to be processed ${body}")
                 .split(bodyAs(List.class))
                 .parallelProcessing(true)
-                .log("order to be processed ${body}")
                 .process(completeOrderProcessor)
                 .end()
                 .log("end of the route")
