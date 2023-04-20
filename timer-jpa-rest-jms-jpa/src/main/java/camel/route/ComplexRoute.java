@@ -17,7 +17,7 @@ public class ComplexRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("direct:start")
+        from("timer://simpleTimer?period=3000")
                 .routeId("simple-route")
                 .log("start of the route at ${body}")
                 .process(readBulkFromDBProcessor)

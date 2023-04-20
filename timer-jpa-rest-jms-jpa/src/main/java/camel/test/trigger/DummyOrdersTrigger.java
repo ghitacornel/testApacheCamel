@@ -1,4 +1,4 @@
-package camel.trigger;
+package camel.test.trigger;
 
 import camel.database.Order;
 import camel.database.OrderRepository;
