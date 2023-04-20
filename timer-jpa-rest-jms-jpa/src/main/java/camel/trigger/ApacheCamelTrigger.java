@@ -5,6 +5,8 @@ import org.apache.camel.ProducerTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class ApacheCamelTrigger {
@@ -13,7 +15,7 @@ public class ApacheCamelTrigger {
 
     @Scheduled(fixedRate = 2000)
     public void triggerApacheRoute() {
-        producerTemplate.sendBody("direct:start");
+        producerTemplate.sendBody("direct:start", LocalDateTime.now());
     }
 
 }

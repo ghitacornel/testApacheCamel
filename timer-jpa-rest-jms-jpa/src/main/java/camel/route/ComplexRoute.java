@@ -13,6 +13,7 @@ public class ComplexRoute extends RouteBuilder {
         from("direct:start")
                 .routeId("simple-route")
                 .log("start of the route")
+                .log("Processing ${id} with body ${body}")
                 .log("end of the route")
         ;
     }
