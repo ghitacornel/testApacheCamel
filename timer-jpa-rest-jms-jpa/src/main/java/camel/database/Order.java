@@ -26,6 +26,7 @@ public class Order {
     private int price;
     private int quantity;
 
+    @Builder.Default
     private OrderStatus status = OrderStatus.NEW;
 
 }
