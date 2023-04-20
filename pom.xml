@@ -16,12 +16,13 @@
         <module>rest-jms-jms-jpa</module>
         <module>multicast</module>
         <module>csv-processing</module>
+        <module>timer-jpa-rest-jms-jpa</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+        <maven.compiler.source>19</maven.compiler.source>
     </properties>
 
     <dependencyManagement>
