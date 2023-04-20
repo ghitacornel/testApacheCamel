@@ -15,7 +15,7 @@ public class DummyOrdersTrigger {
 
     private static final Faker faker = new Faker();
 
-    @Scheduled(fixedRate = 100)
+    @Scheduled(fixedRate = 500)
     public void addNewOrder() {
         Order order = Order.builder()
                 .product(faker.commerce().productName())
