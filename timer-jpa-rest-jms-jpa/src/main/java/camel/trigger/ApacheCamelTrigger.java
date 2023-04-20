@@ -13,7 +13,7 @@ public class ApacheCamelTrigger {
 
     private final ProducerTemplate producerTemplate;
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 3000)
     public void triggerApacheRoute() {
         producerTemplate.sendBody("direct:start", LocalDateTime.now());
     }
