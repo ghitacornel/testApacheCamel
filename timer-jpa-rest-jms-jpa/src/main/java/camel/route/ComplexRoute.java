@@ -33,7 +33,7 @@ public class ComplexRoute extends RouteBuilder {
                 .routeId("voucher-retry-route")
                 .log("start of the route for TRY_FOR_VOUCHER_PERCENTAGE orders")
                 .process(readTryForVoucherPercentageOrdersFromDBProcessor)
-                .log("NEW orders to be processed ${body}")
+                .log("TRY_FOR_VOUCHER_PERCENTAGE orders to be processed ${body}")
                 .split(bodyAs(List.class))
                 .parallelProcessing(true)
                 .to("direct:voucher")
