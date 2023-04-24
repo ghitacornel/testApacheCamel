@@ -9,7 +9,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
 
-import static camel.database.OrderStatus.VOUCHER_PERCENTAGE_COMPLETED;
+import static camel.database.OrderStatus.VOUCHER_PERCENTAGE;
 
 @Slf4j
 @Component
@@ -23,7 +23,7 @@ public class CompleteOrderProcessor implements Processor {
         Order order = exchange.getMessage().getBody(Order.class);
 
         // do not complete orders with status different than this
-        if (order.getStatus() != VOUCHER_PERCENTAGE_COMPLETED) {
+        if (order.getStatus() != VOUCHER_PERCENTAGE) {
             return;
         }
 

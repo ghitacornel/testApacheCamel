@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class Read_NEW_FromDBProcessor implements Processor {
+public class ReadNewOrdersFromDBProcessor implements Processor {
 
     private final OrderRepository orderRepository;
 

@@ -47,7 +47,7 @@ public class CallVoucherForPercentageProcessor implements Processor {
 
         // step 3
         order.setPercentageVoucherReduction(response.getBody());
-        order.setStatus(OrderStatus.VOUCHER_PERCENTAGE_COMPLETED);
+        order.setStatus(OrderStatus.VOUCHER_PERCENTAGE);
         orderRepository.save(order);
         log.info("order " + order.getId() + "  has " + order.getPercentageVoucherReduction() + "% reduction");
     }
