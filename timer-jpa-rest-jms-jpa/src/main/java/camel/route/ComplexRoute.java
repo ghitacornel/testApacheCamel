@@ -33,7 +33,7 @@ public class ComplexRoute extends RouteBuilder {
 
         from("timer://simpleTimer?period=5000")
                 .routeId("voucher-route")
-                .log("start of the route for VOUCHER_PERCENTAGE ")
+                .log("start of the route for VOUCHER_PERCENTAGE orders")
                 .process(readVoucherPercentageFromDBProcessor)
                 .log("VOUCHER_PERCENTAGE orders to be processed ${body}")
                 .split(bodyAs(List.class))
