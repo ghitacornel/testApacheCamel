@@ -26,7 +26,7 @@ public class CallVoucherForPercentageProcessor implements Processor {
         order.setStatus(OrderStatus.VOUCHER_PERCENTAGE);
         orderRepository.save(order);
 
-        ResponseEntity<Integer> response = null;
+        ResponseEntity<Integer> response;
         try {
             response = restTemplate.getForEntity("http://localhost:8080/voucher/{id}", Integer.class, order.getId());
         } catch (Exception e) {
