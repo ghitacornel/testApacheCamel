@@ -3,7 +3,8 @@ package camel.database;
 public enum OrderStatus {
 
     NEW,
-    PROCESSING,
+    VOUCHER_PERCENTAGE,
+    VOUCHER_PERCENTAGE_COMPLETED,
     PROCESSED,
     FAILED
 

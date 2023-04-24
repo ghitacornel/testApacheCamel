@@ -1,5 +1,6 @@
 package camel.route;
 
+import camel.route.steps.CallVoucherForPercentageProcessor;
 import camel.route.steps.CompleteOrderProcessor;
 import camel.route.steps.ReadBulkFromDBProcessor;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 public class ComplexRoute extends RouteBuilder {
 
     private final ReadBulkFromDBProcessor readBulkFromDBProcessor;
+    private final CallVoucherForPercentageProcessor callVoucherForPercentageProcessor;
     private final CompleteOrderProcessor completeOrderProcessor;
 
     @Override
@@ -24,6 +26,7 @@ public class ComplexRoute extends RouteBuilder {
                 .log("orders to be processed ${body}")
                 .split(bodyAs(List.class))
                 .parallelProcessing(true)
+                .process(callVoucherForPercentageProcessor)
                 .process(completeOrderProcessor)
                 .end()
                 .log("end of the route")
