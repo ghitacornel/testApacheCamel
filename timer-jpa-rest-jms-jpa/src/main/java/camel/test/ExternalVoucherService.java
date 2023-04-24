@@ -16,7 +16,7 @@ public class ExternalVoucherService {
     @GetMapping(value = "{id}")
     public Integer getPercentage(@PathVariable(name = "id") Integer id) {
         int i = random.nextInt(100);
-        if (i > 25) {
+        if (i > 90) {
             throw new SimulatorException("simulate error for order id " + id);
         }
         return random.nextInt(100);

@@ -37,7 +37,7 @@ public class CallVoucherForPercentageProcessor implements Processor {
             if (order.getPercentageVoucherReductionTryCount() > 3) {
                 order.setStatus(OrderStatus.FAILED);
                 orderRepository.save(order);
-                log.error("Order as permanently failed " + order.getId() + " tryouts " + order.getPercentageVoucherReductionTryCount());
+                log.error("Order marked as permanently failed " + order.getId() + " tryouts " + order.getPercentageVoucherReductionTryCount());
             } else {
                 orderRepository.save(order);
                 log.error("Error getting voucher percentage reduction for order " + order.getId() + " tryout " + order.getPercentageVoucherReductionTryCount());
@@ -49,6 +49,6 @@ public class CallVoucherForPercentageProcessor implements Processor {
         order.setPercentageVoucherReduction(response.getBody());
         order.setStatus(OrderStatus.VOUCHER_PERCENTAGE_COMPLETED);
         orderRepository.save(order);
-        log.info("order " + order.getId() + "  has " + order.getPercentageVoucherReduction() + "% reduction");
+        log.info("Order " + order.getId() + "  has " + order.getPercentageVoucherReduction() + "% reduction");
     }
 }
