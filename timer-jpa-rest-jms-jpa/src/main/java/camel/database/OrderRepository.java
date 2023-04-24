@@ -9,4 +9,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("select o from Order o where o.status = camel.database.OrderStatus.NEW order by o.id")
     List<Order> findNewOrders();
+
+    @Query("select o from Order o where o.status = camel.database.OrderStatus.VOUCHER_PERCENTAGE order by o.id")
+    List<Order> findVoucherPercentageOrders();
 }

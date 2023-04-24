@@ -29,6 +29,6 @@ public class CompleteOrderProcessor implements Processor {
 
         order.setStatus(OrderStatus.PROCESSED);
         orderRepository.save(order);
-        log.info("order completed " + order.getId());
+        log.info("order completed " + order.getId() + " with tryouts " + order.getPercentageVoucherReductionTryCount());
     }
 }

@@ -33,7 +33,15 @@ public class CallVoucherForPercentageProcessor implements Processor {
         try {
             response = restTemplate.getForEntity("http://localhost:8080/voucher/{id}", Integer.class, order.getId());
         } catch (Exception e) {
-            log.error("error getting voucher percentage reduction for order " + order.getId());
+            order.setPercentageVoucherReductionTryCount(order.getPercentageVoucherReduction() + 1);
+            if (order.getPercentageVoucherReductionTryCount() > 1) {
+                order.setStatus(OrderStatus.FAILED);
+                orderRepository.save(order);
+                log.error("mark order as permanently failed " + order.getId() + " tryouts " + order.getPercentageVoucherReductionTryCount());
+            } else {
+                orderRepository.save(order);
+                log.error("error getting voucher percentage reduction for order " + order.getId() + " tryout " + order.getPercentageVoucherReductionTryCount());
+            }
             return;
         }
 

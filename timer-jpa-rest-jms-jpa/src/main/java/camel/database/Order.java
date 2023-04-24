@@ -25,7 +25,9 @@ public class Order {
     private String product;
     private int price;
     private int quantity;
+
     private int percentageVoucherReduction;
+    private int percentageVoucherReductionTryCount = 0;
 
     @Builder.Default
     private OrderStatus status = OrderStatus.NEW;
