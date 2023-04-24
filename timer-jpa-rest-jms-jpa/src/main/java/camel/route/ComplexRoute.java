@@ -1,5 +1,6 @@
 package camel.route;
 
+import camel.database.OrderRepository;
 import camel.route.steps.*;
 import camel.route.steps.ReadNewOrdersFromDBProcessor;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class ComplexRoute extends RouteBuilder {
     private final ReadTryForVoucherPercentageOrdersFromDBProcessor readTryForVoucherPercentageOrdersFromDBProcessor;
     private final CallVoucherForPercentageProcessor callVoucherForPercentageProcessor;
     private final CompleteOrderProcessor completeOrderProcessor;
+    private final OrderRepository orderRepository;
 
     @Override
     public void configure() {
@@ -42,6 +44,13 @@ public class ComplexRoute extends RouteBuilder {
         from("direct:voucher")
                 .process(callVoucherForPercentageProcessor)
                 .process(completeOrderProcessor)
+                .end()
+        ;
+
+        from("timer://simpleTimer?period=10000")
+                .routeId("delete-completed-orders-route")
+                .process(exchange -> orderRepository.deleteProcessedOrders())
+                .log("periodically delete completed orders")
                 .end()
         ;
     }
