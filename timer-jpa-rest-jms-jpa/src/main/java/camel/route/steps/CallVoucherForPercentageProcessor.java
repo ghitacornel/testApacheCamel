@@ -25,7 +25,7 @@ public class CallVoucherForPercentageProcessor implements Processor {
 
         // step 1
         Order order = exchange.getMessage().getBody(Order.class);
-        order.setStatus(OrderStatus.VOUCHER_PERCENTAGE);
+        order.setStatus(OrderStatus.TRY_FOR_VOUCHER_PERCENTAGE);
         orderRepository.save(order);
 
         // step 2
@@ -34,7 +34,7 @@ public class CallVoucherForPercentageProcessor implements Processor {
             response = restTemplate.getForEntity("http://localhost:8080/voucher/{id}", Integer.class, order.getId());
         } catch (Exception e) {
             order.setPercentageVoucherReductionTryCount(order.getPercentageVoucherReduction() + 1);
-            if (order.getPercentageVoucherReductionTryCount() > 1) {
+            if (order.getPercentageVoucherReductionTryCount() > 3) {
                 order.setStatus(OrderStatus.FAILED);
                 orderRepository.save(order);
                 log.error("Order as permanently failed " + order.getId() + " tryouts " + order.getPercentageVoucherReductionTryCount());
@@ -47,7 +47,7 @@ public class CallVoucherForPercentageProcessor implements Processor {
 
         // step 3
         order.setPercentageVoucherReduction(response.getBody());
-        order.setStatus(OrderStatus.VOUCHER_PERCENTAGE);
+        order.setStatus(OrderStatus.VOUCHER_PERCENTAGE_COMPLETED);
         orderRepository.save(order);
         log.info("order " + order.getId() + "  has " + order.getPercentageVoucherReduction() + "% reduction");
     }
