@@ -19,6 +19,7 @@ public class CallVoucherForPercentageProcessor implements Processor {
     private final OrderRepository orderRepository;
     private final RestTemplate restTemplate = new RestTemplate();
 
+    // @Transactional no transactional here
     @Override
     public void process(Exchange exchange) throws Exception {
         Order order = exchange.getMessage().getBody(Order.class);
