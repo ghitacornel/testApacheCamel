@@ -33,7 +33,7 @@ public class CallVoucherForPercentageProcessor implements Processor {
         try {
             response = restTemplate.getForEntity("http://localhost:8080/voucher/{id}", Integer.class, order.getId());
         } catch (Exception e) {
-            order.setPercentageVoucherReductionTryCount(order.getPercentageVoucherReduction() + 1);
+            order.setPercentageVoucherReductionTryCount(order.getPercentageVoucherReductionTryCount() + 1);
             if (order.getPercentageVoucherReductionTryCount() > 3) {
                 order.setStatus(OrderStatus.FAILED);
                 orderRepository.save(order);
