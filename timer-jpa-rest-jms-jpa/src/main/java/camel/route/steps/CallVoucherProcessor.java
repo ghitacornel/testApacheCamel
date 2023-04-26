@@ -37,10 +37,10 @@ public class CallVoucherProcessor implements Processor {
             if (order.getVoucherTryCount() > 3) {
                 order.setStatus(OrderStatus.FAILED);
                 orderRepository.save(order);
-                log.error("FAIL Order due to voucher" + order.getId() + " tryouts " + order.getVoucherTryCount());
+                log.error("FAIL Order due to voucher" + order.getId() + " tryout " + order.getVoucherTryCount());
             } else {
                 orderRepository.save(order);
-                log.error("Error getting voucher percentage reduction for order " + order.getId() + " tryout " + order.getVoucherTryCount());
+                log.error("Voucher call error, order " + order.getId() + " tryout " + order.getVoucherTryCount());
             }
             return;
         }
