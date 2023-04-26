@@ -1,4 +1,4 @@
-package camel.route.steps;
+package camel.test;
 
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.context.annotation.Bean;
