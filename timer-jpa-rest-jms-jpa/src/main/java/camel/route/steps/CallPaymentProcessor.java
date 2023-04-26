@@ -30,7 +30,7 @@ public class CallPaymentProcessor implements Processor {
 
         // step 2
         try {
-            restTemplate.postForEntity("http://localhost:8080/payment", order, void.class);
+            restTemplate.put("http://localhost:8080/payment", order);
         } catch (Exception e) {
             order.setPaymentTryCount(order.getPaymentTryCount() + 1);
             if (order.getPaymentTryCount() > 3) {
