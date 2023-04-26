@@ -18,7 +18,7 @@ public class ComplexRoute extends RouteBuilder {
     private final CallVoucherProcessor callVoucherProcessor;
     private final CallPaymentProcessor paymentProcessor;
     private final CompleteOrderProcessor completeOrderProcessor;
-    private final OrderRepository orderRepository;
+    private final DeleteCompletedOrdersProcessor deleteCompletedOrdersProcessor;
 
     @Override
     public void configure() {
@@ -51,8 +51,7 @@ public class ComplexRoute extends RouteBuilder {
 
         from("timer://simpleTimer?period=10000")
                 .routeId("delete-completed-orders-route")
-                .process(exchange -> orderRepository.deleteProcessedOrders())
-                .log("periodically delete completed orders")
+                .process(deleteCompletedOrdersProcessor)
                 .end()
         ;
     }
