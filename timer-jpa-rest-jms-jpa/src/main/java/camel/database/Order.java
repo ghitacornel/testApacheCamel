@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Data
@@ -25,8 +26,9 @@ public class Order {
     private String product;
     private int price;
     private int quantity;
-
     private int percentageVoucherReduction;
+    private Date paymentDate;
+
     private int voucherTryCount = 0;
 
     private int paymentTryCount = 0;

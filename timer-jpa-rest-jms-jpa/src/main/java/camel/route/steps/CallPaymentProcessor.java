@@ -10,6 +10,8 @@ import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -45,6 +47,7 @@ public class CallPaymentProcessor implements Processor {
 
         // step 3
         order.setStatus(OrderStatus.PAYMENT_COMPLETED);
+        order.setPaymentDate(new Date());
         orderRepository.save(order);
         log.info("Order " + order.getId() + "  was paid");
     }
