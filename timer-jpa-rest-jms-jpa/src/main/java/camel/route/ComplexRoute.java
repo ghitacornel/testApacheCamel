@@ -16,7 +16,7 @@ public class ComplexRoute extends RouteBuilder {
     private final ReadTryForVoucherOrdersFromDBProcessor readTryForVoucherOrdersFromDBProcessor;
     private final ReadTryForPaymentOrdersFromDBProcessor readTryForPaymentOrdersFromDBProcessor;
     private final CallVoucherProcessor callVoucherProcessor;
-    private final CallPaymentProcessor paymentProcessor;
+    private final CallPaymentProcessor callPaymentProcessor;
     private final CompleteOrderProcessor completeOrderProcessor;
     private final DeleteCompletedOrdersProcessor deleteCompletedOrdersProcessor;
 
@@ -51,8 +51,8 @@ public class ComplexRoute extends RouteBuilder {
 
         from("direct:voucher")
                 .process(callVoucherProcessor)
+                .process(callPaymentProcessor)
                 .process(completeOrderProcessor)
-                .process(paymentProcessor)
                 .end()
         ;
 
