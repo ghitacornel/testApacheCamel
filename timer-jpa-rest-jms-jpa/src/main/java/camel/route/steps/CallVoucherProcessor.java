@@ -25,6 +25,10 @@ public class CallVoucherProcessor implements Processor {
 
         // step 1
         Order order = exchange.getMessage().getBody(Order.class);
+        if (order.getStatus() != OrderStatus.NEW && order.getStatus() != OrderStatus.TRY_FOR_VOUCHER) {
+            return;
+        }
+
         order.setStatus(OrderStatus.TRY_FOR_VOUCHER);
         orderRepository.save(order);
 
@@ -42,7 +46,7 @@ public class CallVoucherProcessor implements Processor {
                 orderRepository.save(order);
                 log.error("Voucher call error, order " + order.getId() + " tryout " + order.getVoucherTryCount());
             }
-            throw e;
+            return;
         }
 
         // step 3

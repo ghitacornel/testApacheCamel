@@ -24,8 +24,13 @@ public class CallPaymentProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
 
+
         // step 1
         Order order = exchange.getMessage().getBody(Order.class);
+        if (order.getStatus() != OrderStatus.VOUCHER_COMPLETED && order.getStatus() != OrderStatus.TRY_FOR_PAYMENT) {
+            return;
+        }
+
         order.setStatus(OrderStatus.TRY_FOR_PAYMENT);
         orderRepository.save(order);
 
@@ -42,7 +47,7 @@ public class CallPaymentProcessor implements Processor {
                 orderRepository.save(order);
                 log.error("Payment call error, order " + order.getId() + " tryout " + order.getPaymentTryCount());
             }
-            throw e;
+            return;
         }
 
         // step 3
