@@ -27,7 +27,7 @@ public class ComplexRoute extends RouteBuilder {
                 .process(readNewOrdersFromDBProcessor)
                 .log("NEW orders to be processed ${body}")
                 .split(bodyAs(List.class))
-                .parallelProcessing(true)
+//                .parallelProcessing(true)
                 .to("direct:voucher")
         ;
 
@@ -36,7 +36,7 @@ public class ComplexRoute extends RouteBuilder {
                 .process(readTryForVoucherOrdersFromDBProcessor)
                 .log("TRY_FOR_VOUCHER orders ${body}")
                 .split(bodyAs(List.class))
-                .parallelProcessing(true)
+//                .parallelProcessing(true)
                 .to("direct:voucher")
         ;
 
@@ -45,7 +45,7 @@ public class ComplexRoute extends RouteBuilder {
                 .process(readTryForPaymentOrdersFromDBProcessor)
                 .log("TRY_FOR_PAYMENT orders ${body}")
                 .split(bodyAs(List.class))
-                .parallelProcessing(true)
+//                .parallelProcessing(true)
                 .to("direct:voucher")
         ;
 
