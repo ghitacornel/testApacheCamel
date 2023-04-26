@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -45,7 +44,7 @@ public class CallPaymentProcessor implements Processor {
         }
 
         // step 3
-        order.setStatus(OrderStatus.PAYMENT_COMPLETE);
+        order.setStatus(OrderStatus.PAYMENT_COMPLETED);
         orderRepository.save(order);
         log.info("Order " + order.getId() + "  was paid");
     }

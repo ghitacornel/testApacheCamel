@@ -1,6 +1,5 @@
 package camel.route;
 
-import camel.database.OrderRepository;
 import camel.route.steps.*;
 import camel.route.steps.ReadNewOrdersFromDBProcessor;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,8 @@ import java.util.List;
 public class ComplexRoute extends RouteBuilder {
 
     private final ReadNewOrdersFromDBProcessor readNewOrdersFromDBProcessor;
-    private final ReadTryForVoucherPercentageOrdersFromDBProcessor readTryForVoucherPercentageOrdersFromDBProcessor;
+    private final ReadTryForVoucherOrdersFromDBProcessor readTryForVoucherOrdersFromDBProcessor;
+    private final ReadTryForPaymentOrdersFromDBProcessor readTryForPaymentOrdersFromDBProcessor;
     private final CallVoucherProcessor callVoucherProcessor;
     private final CallPaymentProcessor paymentProcessor;
     private final CompleteOrderProcessor completeOrderProcessor;
@@ -34,9 +34,17 @@ public class ComplexRoute extends RouteBuilder {
 
         from("timer://simpleTimer?period=4500")
                 .routeId("voucher-retry-route")
-                .log("start of the route for TRY_FOR_VOUCHER_PERCENTAGE orders")
-                .process(readTryForVoucherPercentageOrdersFromDBProcessor)
-                .log("TRY_FOR_VOUCHER_PERCENTAGE orders to be processed ${body}")
+                .process(readTryForVoucherOrdersFromDBProcessor)
+                .log("TRY_FOR_VOUCHER orders ${body}")
+                .split(bodyAs(List.class))
+                .parallelProcessing(true)
+                .to("direct:voucher")
+        ;
+
+        from("timer://simpleTimer?period=4500")
+                .routeId("payment-retry-route")
+                .process(readTryForPaymentOrdersFromDBProcessor)
+                .log("TRY_FOR_PAYMENT orders ${body}")
                 .split(bodyAs(List.class))
                 .parallelProcessing(true)
                 .to("direct:voucher")

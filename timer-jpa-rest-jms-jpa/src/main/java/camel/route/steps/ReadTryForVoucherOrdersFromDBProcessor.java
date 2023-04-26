@@ -11,13 +11,13 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class ReadTryForVoucherPercentageOrdersFromDBProcessor implements Processor {
+public class ReadTryForVoucherOrdersFromDBProcessor implements Processor {
 
     private final OrderRepository orderRepository;
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        List<Order> orders = orderRepository.findTryForVoucherPercentageOrders();
+        List<Order> orders = orderRepository.findTryForVoucherOrders();
         exchange.getMessage().setBody(orders);
     }
 }

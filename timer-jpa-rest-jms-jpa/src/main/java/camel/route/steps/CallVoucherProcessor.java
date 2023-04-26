@@ -25,7 +25,7 @@ public class CallVoucherProcessor implements Processor {
 
         // step 1
         Order order = exchange.getMessage().getBody(Order.class);
-        order.setStatus(OrderStatus.TRY_FOR_VOUCHER_PERCENTAGE);
+        order.setStatus(OrderStatus.TRY_FOR_VOUCHER);
         orderRepository.save(order);
 
         // step 2
@@ -47,7 +47,7 @@ public class CallVoucherProcessor implements Processor {
 
         // step 3
         order.setPercentageVoucherReduction(response.getBody());
-        order.setStatus(OrderStatus.VOUCHER_PERCENTAGE_COMPLETED);
+        order.setStatus(OrderStatus.VOUCHER_COMPLETED);
         orderRepository.save(order);
         log.info("Order " + order.getId() + "  has " + order.getPercentageVoucherReduction() + "% reduction");
     }

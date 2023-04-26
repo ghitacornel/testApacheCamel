@@ -22,7 +22,7 @@ public class CompleteOrderProcessor implements Processor {
         Order order = exchange.getMessage().getBody(Order.class);
 
         // do not complete orders with status different than this
-        if (order.getStatus() != OrderStatus.PAYMENT_COMPLETE) {
+        if (order.getStatus() != OrderStatus.PAYMENT_COMPLETED) {
             return;
         }
 
