@@ -42,7 +42,7 @@ public class CallVoucherProcessor implements Processor {
                 orderRepository.save(order);
                 log.error("Voucher call error, order " + order.getId() + " tryout " + order.getVoucherTryCount());
             }
-            return;
+            throw e;
         }
 
         // step 3

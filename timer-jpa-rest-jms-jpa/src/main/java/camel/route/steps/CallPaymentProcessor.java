@@ -42,7 +42,7 @@ public class CallPaymentProcessor implements Processor {
                 orderRepository.save(order);
                 log.error("Payment call error, order " + order.getId() + " tryout " + order.getPaymentTryCount());
             }
-            return;
+            throw e;
         }
 
         // step 3
