@@ -53,6 +53,17 @@ public class ComplexRoute extends RouteBuilder {
                 .process(callVoucherProcessor)
                 .process(callPaymentProcessor)
                 .process(completeOrderProcessor)
+                .choice()
+                .when(simple("${body.status.name()} == 'PROCESSED'"))
+                .marshal().json()
+                .log("send to complete jms queue ${body}")
+                .to("jms:queue:CompletedOrdersQueueName")
+                .when(simple("${body.status.name()} == 'FAILED'"))
+                .marshal().json()
+                .log("send to failed jms queue ${body}")
+                .to("jms:queue:FailedOrdersQueueName")
+                .otherwise()
+                .end()
                 .end()
         ;
 
@@ -61,6 +72,13 @@ public class ComplexRoute extends RouteBuilder {
                 .process(deleteCompletedOrdersProcessor)
                 .end()
         ;
+
+        from("jms:queue:CompletedOrdersQueueName")
+                .log("got completed from jms ${body}")
+                .end();
+        from("jms:queue:FailedOrdersQueueName")
+                .log("got failed from jms ${body}")
+                .end();
     }
 }
 
