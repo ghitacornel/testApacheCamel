@@ -35,7 +35,7 @@ public class CallPaymentProcessor implements Processor {
             if (order.getPaymentTryCount() > 3) {
                 order.setStatus(OrderStatus.FAILED);
                 orderRepository.save(order);
-                log.error("Order marked as permanently failed due to payment " + order.getId() + " tryouts " + order.getPaymentTryCount());
+                log.error("FAIL Order due to payment " + order.getId() + " tryouts " + order.getPaymentTryCount());
             } else {
                 orderRepository.save(order);
                 log.error("Error paying order " + order.getId() + " tryout " + order.getPaymentTryCount());
