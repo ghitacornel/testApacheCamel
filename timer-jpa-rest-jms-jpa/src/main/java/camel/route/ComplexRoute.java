@@ -24,7 +24,6 @@ public class ComplexRoute extends RouteBuilder {
     public void configure() {
         from("timer://simpleTimer?period=3000")
                 .routeId("start-route")
-                .log("start of the route for NEW orders")
                 .process(readNewOrdersFromDBProcessor)
                 .log("NEW orders to be processed ${body}")
                 .split(bodyAs(List.class))
