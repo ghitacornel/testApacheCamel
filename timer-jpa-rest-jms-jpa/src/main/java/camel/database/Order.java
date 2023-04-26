@@ -32,4 +32,6 @@ public class Order {
     @Builder.Default
     private OrderStatus status = OrderStatus.NEW;
 
+    private int paymentTryCount = 0;
+
 }

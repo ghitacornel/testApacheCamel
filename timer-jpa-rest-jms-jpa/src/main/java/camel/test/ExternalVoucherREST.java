@@ -9,16 +9,20 @@ import java.util.Random;
 
 @RestController
 @RequestMapping(value = "voucher")
-public class ExternalVoucherService {
+public class ExternalVoucherREST {
 
     private final Random random = new Random();
 
     @GetMapping(value = "{id}")
     public Integer getPercentage(@PathVariable(name = "id") Integer id) {
-        int i = random.nextInt(100);
-        if (i > 10) {
-            throw new SimulatorException("simulate error for order id " + id);
+
+        {// simulate error here
+            int i = random.nextInt(100);
+            if (i > 50) {
+                throw new SimulatorException("simulate error for voucher, order id = " + id);
+            }
         }
+
         return random.nextInt(100);
     }
 }
