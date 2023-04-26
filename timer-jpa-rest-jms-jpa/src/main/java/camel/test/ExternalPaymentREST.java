@@ -12,7 +12,7 @@ public class ExternalPaymentREST {
     private final Random random = new Random();
 
     @PutMapping
-    public void getPercentage(@RequestBody Order order) {
+    public void pay(@RequestBody Order order) {
 
         {// simulate error here
             int i = random.nextInt(100);
