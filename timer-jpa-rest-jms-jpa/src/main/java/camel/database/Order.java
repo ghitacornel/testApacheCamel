@@ -29,9 +29,9 @@ public class Order {
     private int percentageVoucherReduction;
     private int voucherTryCount = 0;
 
+    private int paymentTryCount = 0;
+
     @Builder.Default
     private OrderStatus status = OrderStatus.NEW;
-
-    private int paymentTryCount = 0;
 
 }
