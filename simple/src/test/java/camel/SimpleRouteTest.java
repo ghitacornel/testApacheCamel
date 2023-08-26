@@ -4,7 +4,6 @@ import camel.route.SimpleRoute;
 import lombok.SneakyThrows;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.AdviceWith;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ public class SimpleRouteTest extends CamelTestSupport {
         });
 
         getMockEndpoint("mock:direct:start").expectedBodiesReceived("Hello");
-        getMockEndpoint("mock:result").expectedBodiesReceived("Hello_AddedValue");
+        getMockEndpoint("mock:result").expectedBodiesReceived("Hello_AddedValueBySimpleProcessor_AddedValueByLambdaProcessor");
 
         String input = "Hello";
         template.sendBody("direct:start", input);

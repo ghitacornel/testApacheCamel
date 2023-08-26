@@ -15,6 +15,11 @@ public class SimpleRoute extends RouteBuilder {
                 .log("before simpleProcessor body = " + body().toString())
                 .bean(simpleProcessor)
                 .log("after simpleProcessor body = " + body().toString())
+                .log("before lambda processor body = " + body().toString())
+                .process(exchange ->
+                        exchange.getMessage().setBody(exchange.getMessage().getBody(String.class) + "_AddedValueByLambdaProcessor")
+                )
+                .log("after lambda processor body = " + body().toString())
                 .log("end of the route")
                 .end()
         ;

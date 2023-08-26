@@ -7,6 +7,6 @@ public class SimpleProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) {
-        exchange.getMessage().setBody(exchange.getMessage().getBody(String.class) + "_AddedValue");
+        exchange.getMessage().setBody(exchange.getMessage().getBody(String.class) + "_AddedValueBySimpleProcessor");
     }
 }
