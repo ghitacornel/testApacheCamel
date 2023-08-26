@@ -4,7 +4,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Step1 implements Processor {
     @Override
