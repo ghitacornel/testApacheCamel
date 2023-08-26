@@ -1,6 +1,5 @@
 package camel.route;
 
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class MulticastParallelRoute extends RouteBuilder {
         from("direct:start")
                 .routeId("simple-multicast-parallel-route")
                 .log("start of the route")
-                .bean((Processor) exchange -> {
+                .process(exchange -> {
                     List<String> logs = new ArrayList<>();
                     logs.add("initial step");
                     exchange.getMessage().setBody(logs);
