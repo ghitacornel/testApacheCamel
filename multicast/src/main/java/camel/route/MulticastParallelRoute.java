@@ -1,18 +1,14 @@
 package camel.route;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@RequiredArgsConstructor
 public class MulticastParallelRoute extends RouteBuilder {
 
-    private final Snapshot snapshot;
+    private final Snapshot snapshot = new Snapshot();
 
     @Override
     public void configure() {
