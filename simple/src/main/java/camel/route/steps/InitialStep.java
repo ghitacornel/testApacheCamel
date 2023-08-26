@@ -7,11 +7,8 @@ import java.util.Date;
 
 public class InitialStep implements Processor {
 
-    public Date testDate;
-
     @Override
     public void process(Exchange exchange) {
-        testDate = new Date();
-        exchange.getMessage().setBody(testDate);
+        exchange.getMessage().setBody(exchange.getMessage().getBody(String.class) + "_InitialStep");
     }
 }

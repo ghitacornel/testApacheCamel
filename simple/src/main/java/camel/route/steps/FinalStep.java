@@ -5,10 +5,9 @@ import org.apache.camel.Processor;
 
 public class FinalStep implements Processor {
 
-    public String testString;
 
     @Override
     public void process(Exchange exchange) {
-        testString = exchange.getIn().getBody(String.class);
+        exchange.getMessage().setBody(exchange.getMessage(String.class) + "_FinalStep");
     }
 }
