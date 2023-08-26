@@ -1,4 +1,4 @@
-package camel.route.steps;
+package camel.route;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;

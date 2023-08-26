@@ -1,6 +1,5 @@
 package camel.route;
 
-import camel.route.steps.SimpleProcessor;
 import org.apache.camel.builder.RouteBuilder;
 
 public class SimpleRoute extends RouteBuilder {
