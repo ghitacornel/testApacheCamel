@@ -29,7 +29,7 @@ public class MulticastParallelRoute extends RouteBuilder {
                 .end();
 
         from("direct:parallelFlow1")
-                .bean((Processor) exchange -> {
+                .process(exchange -> {
                     List<String> logs = new ArrayList<>();
                     logs.add("parallel step 1 executed by " + Thread.currentThread());
                     snapshot.getTrace().put("parallel step 1", Thread.currentThread());
@@ -39,7 +39,7 @@ public class MulticastParallelRoute extends RouteBuilder {
                 .end();
 
         from("direct:parallelFlow2")
-                .bean((Processor) exchange -> {
+                .process(exchange -> {
                     List<String> logs = new ArrayList<>();
                     logs.add("parallel step 2 executed by " + Thread.currentThread());
                     snapshot.getTrace().put("parallel step 2", Thread.currentThread());
@@ -49,7 +49,7 @@ public class MulticastParallelRoute extends RouteBuilder {
                 .end();
 
         from("direct:parallelFlow3")
-                .bean((Processor) exchange -> {
+                .process(exchange -> {
                     List<String> logs = new ArrayList<>();
                     logs.add("parallel step 3 executed by " + Thread.currentThread());
                     snapshot.getTrace().put("parallel step 3", Thread.currentThread());
