@@ -23,11 +23,13 @@ public class SimpleRouteTest extends CamelTestSupport {
         // advice the start route using the inlined AdviceWith lambda style route builder
         // which has extended capabilities than the regular route builder
         // mock all endpoints
-        AdviceWith.adviceWith(context, "simple-route", AdviceWithRouteBuilder::mockEndpoints);
+        AdviceWith.adviceWith(context, "simple-route", adviceWithRouteBuilder -> {
+            adviceWithRouteBuilder.weaveAddLast().to("mock:result").end();
+            adviceWithRouteBuilder.mockEndpoints();
+        });
 
         getMockEndpoint("mock:direct:start").expectedBodiesReceived("Hello");
-//        getMockEndpoint("mock:bean:initialStep").expectedBodiesReceived("Hello");
-//        getMockEndpoint("mock:bean:step1").expectedBodiesReceived("Hello");
+        getMockEndpoint("mock:result").expectedBodiesReceived("Hello_AddedValue");
 
         String input = "Hello";
         template.sendBody("direct:start", input);
