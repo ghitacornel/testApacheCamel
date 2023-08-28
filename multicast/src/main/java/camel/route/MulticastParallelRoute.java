@@ -20,6 +20,7 @@ public class MulticastParallelRoute extends RouteBuilder {
         from("direct:parallelFlow1")
                 .process(exchange -> {
                     exchange.getMessage().setBody(exchange.getMessage().getBody() + " " + Thread.currentThread() + " parallelFlow1");
+                    exchange.getMessage().setHeader("thread", "a thread");
                 })
                 .log("after parallel flow 1 : ${body}")
                 .end();
@@ -27,6 +28,7 @@ public class MulticastParallelRoute extends RouteBuilder {
         from("direct:parallelFlow2")
                 .process(exchange -> {
                     exchange.getMessage().setBody(exchange.getMessage().getBody() + " " + Thread.currentThread() + " parallelFlow2");
+                    exchange.getMessage().setHeader("thread", "a thread");
                 })
                 .log("after parallel flow 2 : ${body}")
                 .end();
@@ -34,6 +36,7 @@ public class MulticastParallelRoute extends RouteBuilder {
         from("direct:parallelFlow3")
                 .process(exchange -> {
                     exchange.getMessage().setBody(exchange.getMessage().getBody() + " " + Thread.currentThread() + " parallelFlow3");
+                    exchange.getMessage().setHeader("thread", "a thread");
                 })
                 .log("after parallel flow 3 : ${body}")
                 .end();

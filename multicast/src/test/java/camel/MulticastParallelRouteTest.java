@@ -34,6 +34,8 @@ public class MulticastParallelRouteTest extends CamelTestSupport {
         getMockEndpoint("mock:direct:parallelFlow2").expectedBodiesReceived(input);
         getMockEndpoint("mock:direct:parallelFlow3").expectedBodiesReceived(input);
 
+        getMockEndpoint("mock:result").expectedHeaderReceived("thread", "a thread");
+
         template.sendBody("direct:start", input);
 
         MockEndpoint.assertIsSatisfied(context);
