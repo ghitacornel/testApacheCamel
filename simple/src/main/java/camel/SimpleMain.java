@@ -4,7 +4,7 @@ import camel.route.SimpleRoute;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 
-public class SimpleRouteMain {
+public class SimpleMain {
 
     public static void main(String[] args) throws Exception {
         try (CamelContext camelContext = new DefaultCamelContext()) {

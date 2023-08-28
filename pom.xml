@@ -12,6 +12,7 @@
     <modules>
         <module>simple</module>
         <module>multicast</module>
+        <module>choice</module>
     </modules>
 
     <properties>
