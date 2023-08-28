@@ -13,6 +13,7 @@
         <module>simple</module>
         <module>multicast</module>
         <module>choice</module>
+        <module>wiretap</module>
     </modules>
 
     <properties>
