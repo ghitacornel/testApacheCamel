@@ -1,7 +1,6 @@
 package camel;
 
 import camel.route.ChoiceRoute;
-import lombok.SneakyThrows;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
@@ -16,9 +15,8 @@ public class ChoiceRouteTest extends CamelTestSupport {
         return new ChoiceRoute();
     }
 
-    @SneakyThrows
     @Test
-    public void testRoute() {
+    public void testRoute() throws Exception {
 
         // advice the start route using the inlined AdviceWith lambda style route builder
         // which has extended capabilities than the regular route builder
