@@ -19,21 +19,21 @@ public class MulticastParallelRoute extends RouteBuilder {
 
         from("direct:parallelFlow1")
                 .process(exchange -> {
-                    exchange.getMessage().setBody(Thread.currentThread() + " parallelFlow1");
+                    exchange.getMessage().setBody(exchange.getMessage().getBody() + " " + Thread.currentThread() + " parallelFlow1");
                 })
                 .log("after parallel flow 1 : ${body}")
                 .end();
 
         from("direct:parallelFlow2")
                 .process(exchange -> {
-                    exchange.getMessage().setBody(Thread.currentThread() + " parallelFlow2");
+                    exchange.getMessage().setBody(exchange.getMessage().getBody() + " " + Thread.currentThread() + " parallelFlow2");
                 })
                 .log("after parallel flow 2 : ${body}")
                 .end();
 
         from("direct:parallelFlow3")
                 .process(exchange -> {
-                    exchange.getMessage().setBody(Thread.currentThread() + " parallelFlow3");
+                    exchange.getMessage().setBody(exchange.getMessage().getBody() + " " + Thread.currentThread() + " parallelFlow3");
                 })
                 .log("after parallel flow 3 : ${body}")
                 .end();

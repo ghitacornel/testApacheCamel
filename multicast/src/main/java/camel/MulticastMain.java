@@ -15,7 +15,8 @@ public class MulticastMain {
                 // initiate a startup message
                 // can be a dummy one
                 // observe random execution order
-                camelContext.createProducerTemplate().sendBody("direct:start", "This is a dummy startup message");
+                // observe same body is send to all
+                camelContext.createProducerTemplate().sendBody("direct:start", new Object());
             }
 
             {
@@ -23,7 +24,8 @@ public class MulticastMain {
                 // initiate a startup message
                 // can be a dummy one
                 // observe random execution order
-                camelContext.createProducerTemplate().sendBody("direct:start", "This is a dummy startup message");
+                // observe same body is send to all
+                camelContext.createProducerTemplate().sendBody("direct:start", new Object());
             }
 
         }
