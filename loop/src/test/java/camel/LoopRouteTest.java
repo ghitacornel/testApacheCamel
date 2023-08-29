@@ -26,7 +26,7 @@ public class LoopRouteTest extends CamelTestSupport {
         });
 
         getMockEndpoint("mock:direct:start1").expectedBodiesReceived("one");
-        getMockEndpoint("mock:result").expectedBodiesReceived("oneBBB");
+        getMockEndpoint("mock:result").expectedBodiesReceived("oneAAA");
 
         template.sendBody("direct:start1", "one");
 
@@ -48,6 +48,25 @@ public class LoopRouteTest extends CamelTestSupport {
         getMockEndpoint("mock:result").expectedBodiesReceived("twoB");
 
         template.sendBody("direct:start2", "two");
+
+        MockEndpoint.assertIsSatisfied(context);
+    }
+
+    @Test
+    public void testRouteLoopWhile() throws Exception {
+
+        // advice the start route using the inlined AdviceWith lambda style route builder
+        // which has extended capabilities than the regular route builder
+        // mock all endpoints
+        AdviceWith.adviceWith(context, "simple-loop-while", adviceWithRouteBuilder -> {
+            adviceWithRouteBuilder.weaveAddLast().to("mock:result").end();
+            adviceWithRouteBuilder.mockEndpoints();
+        });
+
+        getMockEndpoint("mock:direct:start3").expectedBodiesReceived("three");
+        getMockEndpoint("mock:result").expectedBodiesReceived("threeCCCCC");
+
+        template.sendBody("direct:start3", "three");
 
         MockEndpoint.assertIsSatisfied(context);
     }

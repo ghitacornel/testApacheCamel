@@ -10,7 +10,7 @@ public class LoopRoute extends RouteBuilder {
                 .routeId("simple-loop")
                 .log("initial message ${body}")
                 .loop(3)
-                .transform(body().append("B"))
+                .transform(body().append("A"))
                 .log("repeated message ${body}")
                 .end();
 
@@ -20,6 +20,14 @@ public class LoopRoute extends RouteBuilder {
                 .loop(3)
                 .copy()// repeat the initial message, do not reuse it
                 .transform(body().append("B"))
+                .log("repeated message ${body}")
+                .end();
+
+        from("direct:start3")
+                .routeId("simple-loop-while")
+                .log("initial message ${body}")
+                .loopDoWhile(simple("${body.length} < 10"))
+                .transform(body().append("C"))
                 .log("repeated message ${body}")
                 .end();
     }
