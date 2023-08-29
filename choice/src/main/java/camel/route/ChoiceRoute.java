@@ -10,14 +10,17 @@ public class ChoiceRoute extends RouteBuilder {
                 .routeId("simple-choice")
                 .choice()
                 .when(simple("${body} == 'one'"))
-                .to("direct:a")
+                .log("first option flow")
+                .to("direct:choiceOne")
                 .when(simple("${body} == 'two'"))
-                .to("direct:b")
+                .log("second option flow")
+                .to("direct:choiceTwo")
                 .otherwise()
-                .to("direct:c");
+                .log("default option flow")
+                .to("direct:default");
 
-        from("direct:a").log("${body}").end();
-        from("direct:b").log("${body}").end();
-        from("direct:c").log("${body}").end();
+        from("direct:choiceOne").log("${body}").end();
+        from("direct:choiceTwo").log("${body}").end();
+        from("direct:default").log("${body}").end();
     }
 }

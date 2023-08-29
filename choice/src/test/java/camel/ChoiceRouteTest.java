@@ -24,9 +24,9 @@ public class ChoiceRouteTest extends CamelTestSupport {
         AdviceWith.adviceWith(context, "simple-choice", AdviceWithRouteBuilder::mockEndpoints);
 
         getMockEndpoint("mock:direct:start").expectedBodiesReceived("one", "two", "three");
-        getMockEndpoint("mock:direct:a").expectedBodiesReceived("one");
-        getMockEndpoint("mock:direct:b").expectedBodiesReceived("two");
-        getMockEndpoint("mock:direct:c").expectedBodiesReceived("three");
+        getMockEndpoint("mock:direct:choiceOne").expectedBodiesReceived("one");
+        getMockEndpoint("mock:direct:choiceTwo").expectedBodiesReceived("two");
+        getMockEndpoint("mock:direct:default").expectedBodiesReceived("three");
 
         template.sendBody("direct:start", "one");
         template.sendBody("direct:start", "two");
