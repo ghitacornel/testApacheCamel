@@ -15,6 +15,7 @@
         <module>choice</module>
         <module>wiretap</module>
         <module>filter</module>
+        <module>loop</module>
     </modules>
 
     <properties>
