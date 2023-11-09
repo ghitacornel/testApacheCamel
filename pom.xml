@@ -17,6 +17,7 @@
         <module>filter</module>
         <module>loop</module>
         <module>split</module>
+        <module>split-aggregate</module>
     </modules>
 
     <properties>
