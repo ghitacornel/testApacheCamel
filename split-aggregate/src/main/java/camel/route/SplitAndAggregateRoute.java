@@ -9,7 +9,13 @@ public class SplitAndAggregateRoute extends RouteBuilder {
         from("direct:start")
                 .routeId("simple-split-and-aggregate")
                 .log("initial ${body}")
-                .split(body().tokenize(","))
+                .split(body().tokenize(","), (oldExchange, newExchange) -> {
+                    if (oldExchange == null) {
+                        return newExchange;
+                    }
+                    newExchange.getMessage().setBody(oldExchange.getMessage().getBody(String.class) + ";" + newExchange.getMessage().getBody(String.class));
+                    return newExchange;
+                })
                 .log("tokenized ${body}")
                 .end()
                 .to("direct:end")

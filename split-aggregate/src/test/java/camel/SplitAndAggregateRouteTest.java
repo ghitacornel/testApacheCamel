@@ -24,7 +24,7 @@ public class SplitAndAggregateRouteTest extends CamelTestSupport {
         AdviceWith.adviceWith(context, "simple-split-and-aggregate", AdviceWithRouteBuilder::mockEndpoints);
 
         getMockEndpoint("mock:direct:start").expectedBodiesReceived("1,2,3");
-        getMockEndpoint("mock:direct:end").expectedBodiesReceived("1,2,3");
+        getMockEndpoint("mock:direct:end").expectedBodiesReceived("1;2;3");
 
         template.sendBody("direct:start", "1,2,3");
 
